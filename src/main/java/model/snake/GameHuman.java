@@ -7,7 +7,6 @@ import model.snake.entity.Field;
 import model.snake.entity.Score;
 import model.snake.entity.Snake;
 import model.snake.entity.SnakeDirection;
-import model.snake.entity.ai.AIDirection;
 import model.snake.event.BodyCollision;
 import model.snake.event.Collision;
 import model.snake.event.PickUpCollision;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-public class Game extends Observable {
+public class GameHuman extends Observable {
 
 
     private Clock clock;
@@ -28,7 +27,7 @@ public class Game extends Observable {
     private List<Collision> collisions;
     private Score score;
 
-    public Game(int fieldColumns) {
+    public GameHuman(int fieldColumns) {
         this.clock = new Clock();
         this.field = new Field(fieldColumns);
         this.snake = new Snake(field.getColumns());
@@ -68,13 +67,6 @@ public class Game extends Observable {
         else if(code.equals(KeyCode.DOWN)) inputDirection = SnakeDirection.DOWN;
         else if(code.equals(KeyCode.LEFT)) inputDirection = SnakeDirection.LEFT;
         else if(code.equals(KeyCode.RIGHT)) inputDirection = SnakeDirection.RIGHT;
-
-
-        /*
-        if(code.equals(KeyCode.UP)) inputDirection = AIDirection.STRAIGHT;
-        else if(code.equals(KeyCode.LEFT)) inputDirection = AIDirection.LEFT;
-        else if(code.equals(KeyCode.RIGHT)) inputDirection = AIDirection.RIGHT;
-        */
 
 
     }
@@ -117,10 +109,6 @@ public class Game extends Observable {
     public Score getScore() {
         return score;
     }
-
-    private boolean isCollision() {
-        return false;
-    } // TODO Im Field?
 
 
 }
