@@ -12,13 +12,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.snake.Game;
+import model.snake.GameAI;
 
 import java.util.Observable;
 import java.util.Observer;
 
 public class ViewController implements Observer {
 
-    private Game game;
+    private GameAI game;
     private int gridColumns;
     private double gridFieldSize = 40;
 
@@ -34,7 +35,7 @@ public class ViewController implements Observer {
 
     @FXML
     public void initialize() {
-        game = new Game(18);
+        game = new GameAI(18);
         game.addObserver(this);
 
         gridColumns = game.getField().getColumns();
