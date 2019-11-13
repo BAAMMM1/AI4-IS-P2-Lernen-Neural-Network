@@ -7,6 +7,7 @@ import model.snake.entity.Field;
 import model.snake.entity.Score;
 import model.snake.entity.Snake;
 import model.snake.entity.SnakeDirection;
+import model.snake.entity.ai.AIDirection;
 import model.snake.event.BodyCollision;
 import model.snake.event.Collision;
 import model.snake.event.PickUpCollision;
@@ -62,12 +63,22 @@ public class Game extends Observable {
 
     public void input(KeyCode code){
 
+
         if(code.equals(KeyCode.UP)) inputDirection = SnakeDirection.UP;
         else if(code.equals(KeyCode.DOWN)) inputDirection = SnakeDirection.DOWN;
         else if(code.equals(KeyCode.LEFT)) inputDirection = SnakeDirection.LEFT;
         else if(code.equals(KeyCode.RIGHT)) inputDirection = SnakeDirection.RIGHT;
 
+
+        /*
+        if(code.equals(KeyCode.UP)) inputDirection = AIDirection.STRAIGHT;
+        else if(code.equals(KeyCode.LEFT)) inputDirection = AIDirection.LEFT;
+        else if(code.equals(KeyCode.RIGHT)) inputDirection = AIDirection.RIGHT;
+        */
+
+
     }
+
 
     public String visualization(){ // TODO in den Controller
 
