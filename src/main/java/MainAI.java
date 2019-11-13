@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,20 +9,19 @@ import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
 
-public class Main extends Application {
+public class MainAI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader();
 
-        URL path = new File(System.getProperty("user.dir") + "/src/main/java/view/sample.fxml").toURI().toURL();
+        URL path = new File(System.getProperty("user.dir") + "/src/main/java/view/viewAI.fxml").toURI().toURL();
 
         Parent root = FXMLLoader.load(path);
 
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 550, 550));
+        primaryStage.setTitle("View");
+        primaryStage.setScene(new Scene(root, 790, 820));
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

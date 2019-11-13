@@ -3,15 +3,15 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
-import model.snake.Game;
+import model.snake.GameHuman;
 
 import java.util.Observable;
 import java.util.Observer;
 
 
-public class ControllerOld implements Observer {
+public class ViewSimpleHumanController implements Observer {
 
-    Game game;
+    GameHuman gameHuman;
 
     @FXML
     TextArea textArea;
@@ -19,13 +19,13 @@ public class ControllerOld implements Observer {
 
     @FXML
     public void initialize(){
-        game = new Game(15);
-        game.addObserver(this);
+        gameHuman = new GameHuman(15);
+        gameHuman.addObserver(this);
 
-        textArea.setText(game.visualization());
+        textArea.setText(gameHuman.visualization());
 
         new Thread(() -> {
-            game.run();
+            gameHuman.run();
         }).start();
 
 
@@ -34,13 +34,13 @@ public class ControllerOld implements Observer {
 
     public void input(KeyEvent e) {
 
-        game.input(e.getCode());
+        gameHuman.input(e.getCode());
 
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        textArea.setText(game.visualization());
+        textArea.setText(gameHuman.visualization());
     }
 
 

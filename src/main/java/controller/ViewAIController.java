@@ -11,15 +11,15 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import model.snake.Game;
 import model.snake.GameAI;
+import model.snake.GameHuman;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public class ViewController implements Observer {
+public class ViewAIController implements Observer {
 
-    private GameAI game;
+    private GameAI gameAI;
     private int gridColumns;
     private double gridFieldSize = 40;
 
@@ -35,21 +35,21 @@ public class ViewController implements Observer {
 
     @FXML
     public void initialize() {
-        game = new GameAI(18);
-        game.addObserver(this);
+        gameAI = new GameAI(18);
+        gameAI.addObserver(this);
 
-        gridColumns = game.getField().getColumns();
+        gridColumns = gameAI.getField().getColumns();
         cleargrid();
 
         new Thread(() -> {
-            game.run();
+            gameAI.run();
         }).start();
 
     }
 
     public void input(KeyEvent e) {
 
-        game.input(e.getCode());
+        gameAI.input(e.getCode());
 
     }
 
@@ -62,22 +62,22 @@ public class ViewController implements Observer {
 
                 cleargrid(); // TODO Nicht jedes mal das ganze Feld clearen, nur die Schlange clearen
 
-                for (int i = 0; i < game.getSnake().getTails().size(); i++) {
+                for (int i = 0; i < gameAI.getSnake().getTails().size(); i++) {
                     Rectangle rectangle = drawRectangle(gridFieldSize, gridFieldSize, "#000000");
                     rectangle.setStroke(Paint.valueOf("grey"));
                     rectangle.setStrokeWidth(0.5);
-                    gridPane.add(rectangle, game.getSnake().getTails().get(i).getX(), game.getSnake().getTails().get(i).getY());
+                    gridPane.add(rectangle, gameAI.getSnake().getTails().get(i).getX(), gameAI.getSnake().getTails().get(i).getY());
                 }
 
                 Rectangle rectangle = drawRectangle(gridFieldSize, gridFieldSize, "#5B5B5B");
                 rectangle.setStroke(Paint.valueOf("grey"));
                 rectangle.setStrokeWidth(0.5);
-                gridPane.add(rectangle, game.getSnake().getHead().getX(), game.getSnake().getHead().getY());
+                gridPane.add(rectangle, gameAI.getSnake().getHead().getX(), gameAI.getSnake().getHead().getY());
 
                 rectangle = drawRectangle(gridFieldSize, gridFieldSize, "#E8436E");
                 rectangle.setStroke(Paint.valueOf("grey"));
                 rectangle.setStrokeWidth(0.5);
-                gridPane.add(rectangle, game.getField().getPickUp().getX(), game.getField().getPickUp().getY());
+                gridPane.add(rectangle, gameAI.getField().getPickUp().getX(), gameAI.getField().getPickUp().getY());
 
                 drawScroe();
 
@@ -87,14 +87,14 @@ public class ViewController implements Observer {
         //semaphore.release();
         //semaphore.acquire();
         //System.out.println(game.visualization());        ;
-        System.out.println(game.getScore());
+        System.out.println(gameAI.getScore());
 
 
     }
 
     public void drawScroe(){
-        score.setText("Score: " + game.getScore().getScore());
-        bestScore.setText("Best Score: " + game.getScore().getBestScore());
+        score.setText("Score: " + gameAI.getScore().getScore());
+        bestScore.setText("Best Score: " + gameAI.getScore().getBestScore());
     }
 
     private void cleargrid() {
