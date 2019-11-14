@@ -1,24 +1,21 @@
 package model.snake.entity.ai;
 
 import model.snake.entity.Field;
+import model.snake.entity.Player;
 import model.snake.entity.Snake;
-import model.snake.entity.SnakeDirection;
+import model.snake.entity.MoveDirection;
 import model.snake.entity.ai.network.Network;
 import model.snake.entity.ai.network.trainset.TrainSet;
 
 import java.util.Arrays;
 
-public class AIPlayer {
+public class AIPlayer extends Player {
 
     private Network brain;
-    private Field field;
-    private Snake snake;
-
-    private double[] lastInput;
-    private double[] lastOutput;
 
     public AIPlayer(Field field, Snake snake) {
-        this.brain = new Network(6, 4, 4, 1);
+        super(field, snake);
+        this.brain = new Network(6, 5, 5, 1);
         this.field = field;
         this.snake = snake;
         this.initTrainingData();
@@ -55,8 +52,11 @@ public class AIPlayer {
         set.addData(new double[]{1.0, 0.0, 1.0, 0.0, 1.0, 0.0}, new double[]{0.5});
         set.addData(new double[]{1.0, 1.0, 0.0, 1.0, 0.0, 0.0}, new double[]{1});
         set.addData(new double[]{0.0, 1.0, 1.0, 0.0, 1.0, 1.0}, new double[]{0});
+        set.addData(new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0}, new double[]{0.5});
+        set.addData(new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0}, new double[]{0});
+        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0}, new double[]{1});
 
-        brain.train(set, 1000000, 26);
+        brain.train(set, 1000000, set.size());
     }
 
     /**
@@ -65,9 +65,9 @@ public class AIPlayer {
      * input [obstacle_left?, obstacle_straight?, obstacle_right?, apple_left?, apple_straight?, apple_right?] wo bei 1 für Ja, 0 für Nein steht.
      * @return 0.0 -> left, 0.5 -> straight, 1.0 -> right
      */
-    public AIDirection getMove() {
+    public MoveDirection getMove() {
 
-        double[] input = calcSituation();
+        double[] input = calcNeuronInputs();
 
         double[] out = brain.calculate(input);
         this.lastOutput = out.clone();
@@ -75,33 +75,80 @@ public class AIPlayer {
         System.out.println("input: " + Arrays.toString(input));
         System.out.println("output: " + Arrays.toString(out) + String.format("%.2f", out[0]));
 
+        AIDirection direction;
 
         if (out[0] >= 0.0 && out[0] <= 0.34){
             System.out.println("move left");
-            return AIDirection.LEFT;
+            direction = AIDirection.LEFT;
         }
         else if (out[0] >= 0.35 && out[0] <= 0.67){
             System.out.println("move straight");
-            return AIDirection.STRAIGHT;
+            direction = AIDirection.STRAIGHT;
         }
         else if (out[0] >= 0.68 && out[0] <= 1.0){
             System.out.println("move right");
-            return AIDirection.RIGHT;
+            direction = AIDirection.RIGHT;
         } else{
             System.out.println("move else");
-            return AIDirection.STRAIGHT;
+            direction = AIDirection.STRAIGHT;
         }
+
+        return convertDirection(direction);
     }
 
-    private double[] calcSituation() {
-        // [left?, straight?, right?]
+    public MoveDirection convertDirection(AIDirection aiDirection){
+        MoveDirection direction = null;
+
+        if (aiDirection.equals(AIDirection.STRAIGHT)) {
+
+            if(snake.getDirection().equals(MoveDirection.UP)){
+                direction = MoveDirection.UP;
+            } else if(this.snake.getDirection().equals(MoveDirection.DOWN)){
+                direction = MoveDirection.DOWN;
+            } else if(this.snake.getDirection().equals(MoveDirection.LEFT)){
+                direction = MoveDirection.LEFT;
+            } else if(this.snake.getDirection().equals(MoveDirection.RIGHT)){
+                direction = MoveDirection.RIGHT;
+            }
+
+        } else if (aiDirection.equals(AIDirection.LEFT)) {
+
+            if(this.snake.getDirection().equals(MoveDirection.UP)){
+                direction = MoveDirection.LEFT;
+            } else if(this.snake.getDirection().equals(MoveDirection.DOWN)){
+                direction = MoveDirection.RIGHT;
+            } else if(this.snake.getDirection().equals(MoveDirection.LEFT)){
+                direction = MoveDirection.DOWN;
+            } else if(this.snake.getDirection().equals(MoveDirection.RIGHT)){
+                direction = MoveDirection.UP;
+            }
+
+        } else if (aiDirection.equals(AIDirection.RIGHT)) {
+
+            if(this.snake.getDirection().equals(MoveDirection.UP)){
+                direction = MoveDirection.RIGHT;
+            } else if(this.snake.getDirection().equals(MoveDirection.DOWN)){
+                direction = MoveDirection.LEFT;
+            } else if(this.snake.getDirection().equals(MoveDirection.LEFT)){
+                direction = MoveDirection.UP;
+            } else if(this.snake.getDirection().equals(MoveDirection.RIGHT)){
+                direction = MoveDirection.DOWN;
+            }
+
+        }
+        System.out.println("move SnakeDirection: " + direction);
+        return direction;
+    }
+
+    private double[] calcNeuronInputs() {
+        // [obstacle_left?, obstacle_straight?, obstacle_right?, apple_left?, apple_straight?, apple_right?]
         double[] result = new double[6];
 
         System.out.println(snake.getHead().getX());
         System.out.println(snake.getHead().getY());
         System.out.println(snake.getDirection());
 
-        if(snake.getDirection().equals(SnakeDirection.UP)){
+        if(snake.getDirection().equals(MoveDirection.UP)){
             // links prüfen
             System.out.println("up");
             System.out.println(snake.getHead().getX());
@@ -152,7 +199,7 @@ public class AIPlayer {
 
 
 
-        } else if(snake.getDirection().equals(SnakeDirection.DOWN)){
+        } else if(snake.getDirection().equals(MoveDirection.DOWN)){
 
             // links prüfen
             if(snake.getHead().getX() == field.getColumns()-1){
@@ -199,7 +246,7 @@ public class AIPlayer {
                 result[5] = 0.0;
             }
 
-        } else if(snake.getDirection().equals(SnakeDirection.LEFT)){
+        } else if(snake.getDirection().equals(MoveDirection.LEFT)){
 
             // links prüfen
             if(snake.getHead().getY() == field.getColumns()-1){
@@ -245,7 +292,7 @@ public class AIPlayer {
                 result[5] = 0.0;
             }
 
-        } else if (snake.getDirection().equals(SnakeDirection.RIGHT)){
+        } else if (snake.getDirection().equals(MoveDirection.RIGHT)){
 
             // links prüfen
             System.out.println(snake.getHead().getX());
@@ -315,13 +362,8 @@ public class AIPlayer {
         return false;
     }
 
-    public double[] getLastInput() {
-        return lastInput;
-    }
 
-    public double[] getLastOutput() {
-        return lastOutput;
-    }
+
 
     public Network getBrain() {
         return brain;

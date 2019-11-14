@@ -1,7 +1,5 @@
 package model.snake.entity;
 
-import model.snake.entity.ai.AIDirection;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +9,7 @@ public class Snake {
     private List<SnakePart> tails;
     private int columns;
 
-    private SnakeDirection direction = SnakeDirection.LEFT;
+    private MoveDirection direction = MoveDirection.LEFT;
 
 
     public Snake(int fieldColumns) {
@@ -22,75 +20,25 @@ public class Snake {
 
     }
 
-    public void moveAI(AIDirection aiDirection) {
 
-        if (aiDirection.equals(AIDirection.STRAIGHT)) {
 
-            if(this.direction.equals(SnakeDirection.UP)){
-                moveUp();
-            } else if(this.direction.equals(SnakeDirection.DOWN)){
-                moveDown();
-            } else if(this.direction.equals(SnakeDirection.LEFT)){
-                moveLeft();
-            } else if(this.direction.equals(SnakeDirection.RIGHT)){
-                moveRight();
-            }
+    public void move(MoveDirection direction) {
 
-        } else if (aiDirection.equals(AIDirection.LEFT)) {
-
-            if(this.direction.equals(SnakeDirection.UP)){
-                this.direction = SnakeDirection.LEFT;
-                moveLeft();
-            } else if(this.direction.equals(SnakeDirection.DOWN)){
-                this.direction = SnakeDirection.RIGHT;
-                moveRight();
-            } else if(this.direction.equals(SnakeDirection.LEFT)){
-                this.direction = SnakeDirection.DOWN;
-                moveDown();
-            } else if(this.direction.equals(SnakeDirection.RIGHT)){
-                this.direction = SnakeDirection.UP;
-                moveUp();
-            }
-
-        } else if (aiDirection.equals(AIDirection.RIGHT)) {
-
-            if(this.direction.equals(SnakeDirection.UP)){
-                this.direction = SnakeDirection.RIGHT;
-                moveRight();
-            } else if(this.direction.equals(SnakeDirection.DOWN)){
-                this.direction = SnakeDirection.LEFT;
-                moveLeft();
-            } else if(this.direction.equals(SnakeDirection.LEFT)){
-                this.direction = SnakeDirection.UP;
-                moveUp();
-            } else if(this.direction.equals(SnakeDirection.RIGHT)){
-                this.direction = SnakeDirection.DOWN;
-                moveDown();
-            }
-
-        }
-
-    }
-
-    public void move(SnakeDirection direction) {
-
-        if (direction.equals(SnakeDirection.UP) && !this.direction.equals(SnakeDirection.DOWN)) {
+        if (direction.equals(MoveDirection.UP) && !this.direction.equals(MoveDirection.DOWN)) {
             this.direction = direction;
             moveUp();
-        } else if (direction.equals(SnakeDirection.DOWN) && !this.direction.equals(SnakeDirection.UP)) {
+        } else if (direction.equals(MoveDirection.DOWN) && !this.direction.equals(MoveDirection.UP)) {
             this.direction = direction;
             moveDown();
-        } else if (direction.equals(SnakeDirection.LEFT) && !this.direction.equals(SnakeDirection.RIGHT)) {
+        } else if (direction.equals(MoveDirection.LEFT) && !this.direction.equals(MoveDirection.RIGHT)) {
             this.direction = direction;
             moveLeft();
-        } else if (direction.equals(SnakeDirection.RIGHT) && !this.direction.equals(SnakeDirection.LEFT)) {
+        } else if (direction.equals(MoveDirection.RIGHT) && !this.direction.equals(MoveDirection.LEFT)) {
             this.direction = direction;
             moveRight();
         } else {
             move(this.direction);
         }
-
-
     }
 
     public void moveLeft() {
@@ -152,7 +100,7 @@ public class Snake {
         tails.add(head);
     }
 
-    public SnakeDirection getDirection() {
+    public MoveDirection getDirection() {
         return direction;
     }
 }

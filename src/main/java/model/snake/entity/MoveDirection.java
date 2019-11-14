@@ -1,5 +1,5 @@
 package model.snake.entity;
 
-public enum SnakeDirection {
+public enum MoveDirection {
     UP, DOWN, LEFT, RIGHT
 }

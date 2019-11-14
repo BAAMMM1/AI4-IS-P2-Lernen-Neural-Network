@@ -1,14 +1,15 @@
 package model.snake.event;
 
 import model.snake.entity.Field;
+import model.snake.entity.Player;
 import model.snake.entity.Score;
 import model.snake.entity.Snake;
 
 public class PickUpCollision extends Collision {
 
 
-    public PickUpCollision(Field field, Snake snake, Score score) {
-        super(field, snake, score);
+    public PickUpCollision(Player player, Field field, Snake snake, Score score) {
+        super(player, field, snake, score);
     }
 
     @Override

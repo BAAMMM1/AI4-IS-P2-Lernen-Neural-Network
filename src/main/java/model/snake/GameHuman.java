@@ -6,7 +6,7 @@ import model.snake.clock.Clock;
 import model.snake.entity.Field;
 import model.snake.entity.Score;
 import model.snake.entity.Snake;
-import model.snake.entity.SnakeDirection;
+import model.snake.entity.MoveDirection;
 import model.snake.event.BodyCollision;
 import model.snake.event.Collision;
 import model.snake.event.PickUpCollision;
@@ -22,7 +22,7 @@ public class GameHuman extends Observable {
     private Clock clock;
     private Field  field;
     private Snake snake;
-    private SnakeDirection inputDirection;
+    private MoveDirection inputDirection;
     private boolean run;
     private List<Collision> collisions;
     private Score score;
@@ -31,12 +31,12 @@ public class GameHuman extends Observable {
         this.clock = new Clock();
         this.field = new Field(fieldColumns);
         this.snake = new Snake(field.getColumns());
-        this.inputDirection = SnakeDirection.LEFT;
+        this.inputDirection = MoveDirection.LEFT;
         this.score = new Score();
         this.collisions = new ArrayList<>();
-        collisions.add(new PickUpCollision(field, snake, score));
-        collisions.add(new WallColision(field, snake, score));
-        collisions.add(new BodyCollision(field, snake, score));
+        collisions.add(new PickUpCollision(null, field, snake, score));
+        collisions.add(new WallColision(null, field, snake, score));
+        collisions.add(new BodyCollision(null, field, snake, score));
 
         this.run = true;
     }
@@ -63,10 +63,10 @@ public class GameHuman extends Observable {
     public void input(KeyCode code){
 
 
-        if(code.equals(KeyCode.UP)) inputDirection = SnakeDirection.UP;
-        else if(code.equals(KeyCode.DOWN)) inputDirection = SnakeDirection.DOWN;
-        else if(code.equals(KeyCode.LEFT)) inputDirection = SnakeDirection.LEFT;
-        else if(code.equals(KeyCode.RIGHT)) inputDirection = SnakeDirection.RIGHT;
+        if(code.equals(KeyCode.UP)) inputDirection = MoveDirection.UP;
+        else if(code.equals(KeyCode.DOWN)) inputDirection = MoveDirection.DOWN;
+        else if(code.equals(KeyCode.LEFT)) inputDirection = MoveDirection.LEFT;
+        else if(code.equals(KeyCode.RIGHT)) inputDirection = MoveDirection.RIGHT;
 
 
     }

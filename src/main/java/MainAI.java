@@ -20,8 +20,8 @@ public class MainAI extends Application {
 
         Parent root = FXMLLoader.load(path);
 
-        primaryStage.setTitle("View");
-        primaryStage.setScene(new Scene(root, 790, 820));
+        primaryStage.setTitle("Snake Game - Dennis Eickholt, Christian Graumann");
+        primaryStage.setScene(new Scene(root));
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

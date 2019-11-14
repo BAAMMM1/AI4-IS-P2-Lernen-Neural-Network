@@ -1,14 +1,14 @@
 package model.snake.event;
 
-import model.snake.entity.SnakeDirection;
+import model.snake.entity.MoveDirection;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class InputHandler implements KeyListener {
 
-    public SnakeDirection getMovement() {
-        return SnakeDirection.LEFT;
+    public MoveDirection getMovement() {
+        return MoveDirection.LEFT;
     }
 
     @Override
