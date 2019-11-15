@@ -15,7 +15,7 @@ public class WallColision extends Collision{
     public boolean isCollision() {
         if(snake.getHead().getX() < 0 || snake.getHead().getY() < 0){
             return true;
-        } else if(snake.getHead().getX() >= field.getColumns() || snake.getHead().getY() >= field.getColumns()){
+        } else if(snake.getHead().getX() >= field.getColumns() || snake.getHead().getY() >= field.getRows()){
             return true;
         }
         return false;

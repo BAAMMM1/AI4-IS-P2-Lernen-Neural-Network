@@ -6,12 +6,14 @@ import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import model.snake.GameAI;
 
 import java.util.Observable;
@@ -21,9 +23,20 @@ public class ViewController implements Observer {
 
     private GameAI gameAI;
     private int gridColumns;
+    private int girdRows;
     private double gridFieldWidth = 40;
 
     private Thread gameThread;
+
+    private int fieldColumns = 24;
+    private int fieldRows = 14;
+    private double lastWidth = 0.0;
+
+    @FXML
+    AnchorPane anchorPane;
+
+    @FXML
+    AnchorPane anchorPane2;
 
     @FXML
     GridPane gridPane;
@@ -59,10 +72,12 @@ public class ViewController implements Observer {
     @FXML
     public void initialize() {
 
-        gameAI = new GameAI(18);
+        gameAI = new GameAI(fieldColumns, fieldRows);
         gameAI.addObserver(this);
 
+
         gridColumns = gameAI.getField().getColumns();
+        girdRows = gameAI.getField().getRows();
         cleargrid();
 
         gameAI.stop();
@@ -70,9 +85,15 @@ public class ViewController implements Observer {
         initSpeedSlider();
         initTextFieldRuns();
         initCoiceBoxPlayerTyps();
+        initGridPaneResizer();
+
+        System.out.println(gridPane.getHeight());
+        System.out.println((((gridPane.getHeight() / fieldRows)) * fieldColumns) * 2);
 
 
     }
+
+
 
 
     @Override
@@ -129,14 +150,25 @@ public class ViewController implements Observer {
         gridPane.getColumnConstraints().clear();
         gridPane.getChildren().clear();
         for (int a = 0; a < gridColumns; a++) {
-            gridPane.getRowConstraints().add(new RowConstraints());
             gridPane.getColumnConstraints().add(new ColumnConstraints());
         }
+
+        for (int a = 0; a < girdRows; a++) {
+            gridPane.getRowConstraints().add(new RowConstraints());
+        }
+
         for (int i = 0; i < gridColumns; i++) {
-            for (int j = 0; j < gridColumns; j++) {
+            for (int j = 0; j < girdRows; j++) {
                 blankCell(i, j);
             }
         }
+
+
+    }
+
+    private void cleargridSnake() {
+
+
 
     }
 
@@ -148,9 +180,22 @@ public class ViewController implements Observer {
     }
 
     private Rectangle drawRectangle(double width, double height, String colorstring) {
+
+        if(((anchorPane2.getHeight() / girdRows) - 1.0) * fieldColumns < anchorPane2.getWidth()){
+            width = (gridPane.getHeight() / girdRows) - 1.0;
+            height = (gridPane.getHeight() / girdRows) - 1.0 ;
+        } else {
+            width = (gridPane.getWidth() / gridColumns) - 1.5;
+            height = (gridPane.getWidth() / gridColumns) - 1.5;
+        }
+
+
         Rectangle rectangle = new Rectangle(width, height);
         rectangle.setFill(Color.web(colorstring));
         GridPane.setHalignment(rectangle, HPos.CENTER);
+
+        lastWidth = width * fieldColumns;
+
         return rectangle;
     }
 
@@ -171,6 +216,7 @@ public class ViewController implements Observer {
         });
 
         this.gameThread.start();
+        cleargrid();
 
     }
 
@@ -206,6 +252,43 @@ public class ViewController implements Observer {
                 System.out.println(e.getStackTrace());
             }
 
+        });
+    }
+
+    private void initGridPaneResizer() {
+
+        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ((Stage) newWindow).heightProperty().addListener((a, b, c) -> {
+                            if (c != b) {
+                                update(null, null);
+                                System.out.println(newWindow.getHeight());
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
+            if (oldScene == null && newScene != null) {
+                // scene is set for the first time. Now its the time to listen stage changes.
+                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
+                    if (oldWindow == null && newWindow != null) {
+                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
+                        ((Stage) newWindow).widthProperty().addListener((a, b, c) -> {
+                            if (c != b) {
+                                update(null, null);
+                                System.out.println(newWindow.getWidth());
+                            }
+                        });
+                    }
+                });
+            }
         });
     }
 

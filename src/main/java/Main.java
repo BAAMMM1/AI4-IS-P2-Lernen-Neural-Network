@@ -1,3 +1,4 @@
+import controller.ViewController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -16,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader();
 
-        URL path = new File(System.getProperty("user.dir") + "/src/main/java/view/view.fxml").toURI().toURL();
+        URL path = new File(System.getProperty("user.dir") + "/src/main/java/view/view2.fxml").toURI().toURL();
 
         Parent root = FXMLLoader.load(path);
 

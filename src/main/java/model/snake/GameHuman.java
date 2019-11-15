@@ -30,7 +30,7 @@ public class GameHuman extends Observable {
     public GameHuman(int fieldColumns) {
         this.clock = new Clock();
         this.field = new Field(fieldColumns);
-        this.snake = new Snake(field.getColumns());
+        this.snake = new Snake(field.getColumns(), fieldColumns);
         this.inputDirection = MoveDirection.LEFT;
         this.score = new Score();
         this.collisions = new ArrayList<>();

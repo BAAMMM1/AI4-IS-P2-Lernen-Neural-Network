@@ -8,14 +8,16 @@ public class Snake {
     private SnakePart head;
     private List<SnakePart> tails;
     private int columns;
+    private int rows;
 
     private MoveDirection direction = MoveDirection.LEFT;
 
 
-    public Snake(int fieldColumns) {
+    public Snake(int fieldColumns, int fieldRows) {
         this.columns = fieldColumns;
-        tails = new ArrayList<>();
-        head = new SnakePart(fieldColumns / 2, fieldColumns / 2);
+        this.rows = fieldRows;
+            tails = new ArrayList<>();
+        head = new SnakePart(fieldRows / 2, fieldColumns / 2);
         tails.add(head);
 
     }
@@ -96,7 +98,7 @@ public class Snake {
     public void restart() {
         tails.clear();
         head.setX(columns / 2);
-        head.setY(columns / 2);
+        head.setY(rows / 2);
         tails.add(head);
     }
 

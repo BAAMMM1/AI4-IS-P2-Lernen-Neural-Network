@@ -4,6 +4,7 @@ public class Field {
 
     private int[] field;
     private int columns;
+    private int rows;
 
     private int xSize;
     private int ySize;
@@ -13,11 +14,23 @@ public class Field {
     public Field(int columns) {
         this.field = new int[columns * columns];
         this.columns = columns;
+        this.rows = columns;
 
         this.xSize = columns - 1;
         this.ySize = columns - 1;
 
-        pickUp = new PickUp(columns);
+        pickUp = new PickUp(columns, rows);
+    }
+
+    public Field(int columns, int rows) {
+        this.field = new int[columns * rows];
+        this.columns = columns;
+        this.rows = rows;
+
+        this.xSize = columns - 1;
+        this.ySize = rows - 1;
+
+        pickUp = new PickUp(columns, rows);
     }
 
     public int getColumns() {
@@ -34,7 +47,7 @@ public class Field {
 
 
     public void nextPickUp(){
-        this.pickUp = new PickUp(columns);
+        this.pickUp = new PickUp(columns, rows);
     }
 
     public boolean isCollision(){
@@ -44,6 +57,10 @@ public class Field {
 
     public PickUp getPickUp() {
         return pickUp;
+    }
+
+    public int getRows() {
+        return rows;
     }
 
     public static void main(String[] args) {

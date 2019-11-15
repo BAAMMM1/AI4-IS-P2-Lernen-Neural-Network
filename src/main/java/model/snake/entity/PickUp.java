@@ -8,9 +8,9 @@ public class PickUp {
     int y;
 
 
-    public PickUp(int fieldColumns) {
+    public PickUp(int fieldColumns, int fieldRows) {
         Random random = new Random();
-        this.y = random.nextInt(fieldColumns);
+        this.y = random.nextInt(fieldRows);
         this.x = random.nextInt(fieldColumns);
     }
 

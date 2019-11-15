@@ -246,7 +246,7 @@ public class AILearnedByHuman extends Player {
                 result[0] = 0.0;
             }
             // vorne Prüfen
-            if(snake.getHead().getY() == field.getColumns()-1){
+            if(snake.getHead().getY() == field.getRows()-1){
                 result[1] = 1.0;
             } else if(isBodyCollison(snake.getHead().getX(), snake.getHead().getY() + 1)){
                 result[1] = 1.0;
@@ -285,7 +285,7 @@ public class AILearnedByHuman extends Player {
         } else if(snake.getDirection().equals(MoveDirection.LEFT)){
 
             // links prüfen
-            if(snake.getHead().getY() == field.getColumns()-1){
+            if(snake.getHead().getY() == field.getRows()-1){
                 result[0] = 1.0;
             } else if(isBodyCollison(snake.getHead().getX(), snake.getHead().getY() + 1)){
                 result[0] = 1.0;
@@ -350,7 +350,7 @@ public class AILearnedByHuman extends Player {
                 result[1] = 0.0;
             }
             // rechts prüfen
-            if(snake.getHead().getY() == field.getColumns()-1){
+            if(snake.getHead().getY() == field.getRows()-1){
                 result[2] = 1.0;
             } else if(isBodyCollison(snake.getHead().getX(), snake.getHead().getY() + 1)){
                 result[2] = 1.0;
