@@ -15,10 +15,11 @@ public class Network {
     private double[][] error_signal;
     private double[][] output_derivative;
 
-    public final int[] NETWORK_LAYER_SIZES; // Anzahl an Neuron die jeder Layer hat bsp.: [4, 4] Dann hat der Input-Layer 4 Neuronen, der Ouput-Layer 4 Neuronen
-    public final int INPUT_SIZE;    // Anzahl an Neuronen der input Layer hat
-    public final int OUTPUT_SIZE;   // Anzahl an Neuronen die der output Layer hat
-    public final int NETWORK_SIZE;  // Anzahl an Layer des  Netzwerks
+    public int[] NETWORK_LAYER_SIZES; // Anzahl an Neuron die jeder Layer hat bsp.: [4, 4] Dann hat der Input-Layer 4 Neuronen, der Ouput-Layer 4 Neuronen
+    public int INPUT_SIZE;    // Anzahl an Neuronen der input Layer hat
+    public int OUTPUT_SIZE;   // Anzahl an Neuronen die der output Layer hat
+    public int NETWORK_SIZE;  // Anzahl an Layer des  Netzwerks
+
 
     public Network(int... network_layer_size) {
         NETWORK_LAYER_SIZES = network_layer_size;
@@ -189,6 +190,82 @@ public class Network {
         System.out.println(Arrays.toString(network.calculate(in2)));
     }
     */
+
+    public Network() {
+
+    }
+
+    public double[][] getOutput() {
+        return output;
+    }
+
+    public void setOutput(double[][] output) {
+        this.output = output;
+    }
+
+    public double[][][] getWeights() {
+        return weights;
+    }
+
+    public void setWeights(double[][][] weights) {
+        this.weights = weights;
+    }
+
+    public double[][] getBias() {
+        return bias;
+    }
+
+    public void setBias(double[][] bias) {
+        this.bias = bias;
+    }
+
+    public double[][] getError_signal() {
+        return error_signal;
+    }
+
+    public void setError_signal(double[][] error_signal) {
+        this.error_signal = error_signal;
+    }
+
+    public double[][] getOutput_derivative() {
+        return output_derivative;
+    }
+
+    public void setOutput_derivative(double[][] output_derivative) {
+        this.output_derivative = output_derivative;
+    }
+
+    public int[] getNETWORK_LAYER_SIZES() {
+        return NETWORK_LAYER_SIZES;
+    }
+
+    public void setNETWORK_LAYER_SIZES(int[] NETWORK_LAYER_SIZES) {
+        this.NETWORK_LAYER_SIZES = NETWORK_LAYER_SIZES;
+    }
+
+    public int getINPUT_SIZE() {
+        return INPUT_SIZE;
+    }
+
+    public void setINPUT_SIZE(int INPUT_SIZE) {
+        this.INPUT_SIZE = INPUT_SIZE;
+    }
+
+    public int getOUTPUT_SIZE() {
+        return OUTPUT_SIZE;
+    }
+
+    public void setOUTPUT_SIZE(int OUTPUT_SIZE) {
+        this.OUTPUT_SIZE = OUTPUT_SIZE;
+    }
+
+    public int getNETWORK_SIZE() {
+        return NETWORK_SIZE;
+    }
+
+    public void setNETWORK_SIZE(int NETWORK_SIZE) {
+        this.NETWORK_SIZE = NETWORK_SIZE;
+    }
 
     public static void main(String[] args) {
         Network net = new Network(4,3,3,2);

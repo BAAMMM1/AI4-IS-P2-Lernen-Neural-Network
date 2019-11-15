@@ -23,10 +23,15 @@ public class AILearnedByHuman extends Player {
 
     public AILearnedByHuman(Field field, Snake snake) {
         super(field, snake);
-        this.brain = new Network(6, 5, 5, 1);
+        this.brain = IO.loadNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\aiLearnedByHuman").toURI());
         this.field = field;
         this.snake = snake;
-        this.initTrainingData();
+
+        if(brain == null){
+            this.brain = new Network(6, 5, 5, 1);
+            this.initTrainingData();
+        }
+
     }
 
     // [left?, straight?, right?, aleft?, astraight?, aright?] -> [0 ->left, 0.5 -> straight, 1 -> right]
@@ -85,6 +90,9 @@ public class AILearnedByHuman extends Player {
         set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0}, new double[]{1.0});
 
         brain.train(set, 1000000, set.size());
+
+        IO.saveNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\aiLearnedByHuman").toURI(), brain);
+
     }
 
     /**

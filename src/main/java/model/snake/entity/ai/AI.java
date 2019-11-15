@@ -1,5 +1,6 @@
 package model.snake.entity.ai;
 
+import model.io.IO;
 import model.snake.entity.Field;
 import model.snake.entity.Player;
 import model.snake.entity.Snake;
@@ -7,6 +8,7 @@ import model.snake.entity.MoveDirection;
 import model.snake.entity.ai.network.Network;
 import model.snake.entity.ai.network.trainset.TrainSet;
 
+import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -18,10 +20,14 @@ public class AI extends Player {
 
     public AI(Field field, Snake snake) {
         super(field, snake);
-        this.brain = new Network(6, 5, 5, 1);
+        this.brain = IO.loadNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\ai").toURI());
         this.field = field;
         this.snake = snake;
-        this.initTrainingData();
+
+        if(brain == null){
+            this.brain = new Network(6, 5, 5, 1);
+            this.initTrainingData();
+        }
     }
 
     // [left?, straight?, right?, aleft?, astraight?, aright?] -> [0 ->left, 0.5 -> straight, 1 -> right]
@@ -60,6 +66,8 @@ public class AI extends Player {
         set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0}, new double[]{1});
 
         brain.train(set, 1000000, set.size());
+
+        IO.saveNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\ai").toURI(), brain);
     }
 
     /**

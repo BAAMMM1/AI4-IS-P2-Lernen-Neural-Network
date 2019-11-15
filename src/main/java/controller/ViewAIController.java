@@ -72,7 +72,6 @@ public class ViewAIController implements Observer {
         initCoiceBoxPlayerTyps();
 
 
-
     }
 
 
@@ -156,14 +155,14 @@ public class ViewAIController implements Observer {
     }
 
     @FXML
-    public void initSpeedSlider(){
+    public void initSpeedSlider() {
         speedSlider.valueProperty().addListener((ov, old_val, new_val) -> gameAI.getClock().setTime(new_val.intValue()));
     }
 
     @FXML
-    public void buttonStart(){
+    public void buttonStart() {
 
-        if(gameThread != null){
+        if (gameThread != null) {
             this.gameThread.stop();
         }
 
@@ -176,39 +175,38 @@ public class ViewAIController implements Observer {
     }
 
     @FXML
-    public void buttonReset(){
-        if(gameThread != null){
+    public void buttonReset() {
+        if (gameThread != null) {
             this.gameThread.stop();
             this.gameAI.stop();
         }
     }
 
-    public void initCoiceBoxPlayerTyps(){
+    public void initCoiceBoxPlayerTyps() {
         choiceBoxPlayerTyps.setItems(FXCollections.observableArrayList(gameAI.getPlayerTypes().keySet()));
         choiceBoxPlayerTyps.setValue(choiceBoxPlayerTyps.getItems().get(0));
 
     }
 
     @FXML
-    public void choiceBoxPlayerTypsOnAction(){
-        gameAI.setPlayer(choiceBoxPlayerTyps.getValue().toString());
-
+    public void choiceBoxPlayerTypsOnAction() {
         buttonReset();
+        gameAI.setPlayer(choiceBoxPlayerTyps.getValue().toString());
 
     }
 
-    public void initTextFieldRuns(){
+    public void initTextFieldRuns() {
         textFieldRuns.setText(gameAI.getRuns() + "");
 
         textFieldRuns.setOnKeyReleased(event -> {
-            try{
+            try {
                 int value = Integer.parseInt(textFieldRuns.getText());
                 gameAI.setRuns(value);
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println(e.getStackTrace());
             }
 
-            });
+        });
     }
 
 }

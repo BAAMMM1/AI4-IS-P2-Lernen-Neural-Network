@@ -1,6 +1,7 @@
 package model.io;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import model.snake.entity.ai.network.Network;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class IO {
         try {
             return new ObjectMapper().readValue(new File(file), GameRecord.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("GameRecord konnte nicht geladen werden");
         }
 
 
@@ -35,6 +36,32 @@ public class IO {
         System.out.println(fil2.toString());
         try {
             new ObjectMapper().writeValue(new File(file), new GameRecord(inputs, outputs));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static Network loadNetwork(URI file) {
+
+        try {
+            return new ObjectMapper().readValue(new File(file), Network.class);
+        } catch (IOException e) {
+            System.err.println("Netzwerk konnte nicht gefunden werden.");
+            System.err.println("Neues Netzwerk wird trainiert.");
+        }
+
+
+        return null;
+    }
+
+    public static void saveNetwork(URI file, Network network) {
+
+        System.out.println("--> " + file.toString());
+        File fil2 = new File(file);
+        System.out.println(fil2.toString());
+        try {
+            new ObjectMapper().writeValue(new File(file), network);
         } catch (IOException e) {
             e.printStackTrace();
         }
