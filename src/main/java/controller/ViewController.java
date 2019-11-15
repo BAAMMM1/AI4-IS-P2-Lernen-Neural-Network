@@ -17,7 +17,7 @@ import model.snake.GameAI;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ViewAIController implements Observer {
+public class ViewController implements Observer {
 
     private GameAI gameAI;
     private int gridColumns;
