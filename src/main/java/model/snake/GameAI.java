@@ -3,12 +3,17 @@ package model.snake;
 
 import model.snake.clock.Clock;
 import model.snake.entity.*;
-import model.snake.entity.ai.AIPlayer;
+import model.snake.entity.ai.AI;
+import model.snake.entity.ai.AILearnedByHuman;
+import model.snake.entity.ai.Human;
 import model.snake.event.BodyCollision;
 import model.snake.event.Collision;
 import model.snake.event.PickUpCollision;
 import model.snake.event.WallColision;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 public class GameAI extends Observable {
@@ -29,7 +34,7 @@ public class GameAI extends Observable {
         this.field = new Field(fieldColumns);
         this.snake = new Snake(field.getColumns());
         this.score = new Score();
-        this.player = new AIPlayer(this.field, this.snake);
+        this.player = new Human(this.field, this.snake);
 
         this.collisions = Arrays.asList(
                 new PickUpCollision(player, field, snake, score),
@@ -108,5 +113,39 @@ public class GameAI extends Observable {
         field.nextPickUp();
         setChanged();
         notifyObservers();
+    }
+
+    public Map<String, String> getPlayerTypes() {
+
+        Set<Class<? extends Player>> searchAlgortihms = new Reflections("model.snake",
+                new SubTypesScanner(false))
+                .getSubTypesOf(Player.class);
+
+        Map<String, String> result = new HashMap<>();
+
+        for (Class object : searchAlgortihms) {
+            if (!Modifier.isAbstract(object.getModifiers())) {
+                result.put(object.getSimpleName(), object.getName());
+            }
+        }
+
+        return result;
+    }
+
+    public void setPlayer(String player) {
+
+        if(player.equals("Human")){
+            this.player = new Human(field, snake);
+        } else if(player.equals("AI")){
+            this.player = new AI(field, snake);
+        } else {
+            this.player = new AILearnedByHuman(field, snake);
+        }
+
+        for (Collision collision: collisions) {
+            collision.setPlayer(this.player);
+        }
+
+
     }
 }

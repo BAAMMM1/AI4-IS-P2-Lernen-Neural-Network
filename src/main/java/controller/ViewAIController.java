@@ -1,12 +1,10 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -54,6 +52,9 @@ public class ViewAIController implements Observer {
     @FXML
     TextField textFieldRuns;
 
+    @FXML
+    ChoiceBox<String> choiceBoxPlayerTyps;
+
 
     @FXML
     public void initialize() {
@@ -68,6 +69,7 @@ public class ViewAIController implements Observer {
 
         initSpeedSlider();
         initTextFieldRuns();
+        initCoiceBoxPlayerTyps();
 
 
 
@@ -179,6 +181,20 @@ public class ViewAIController implements Observer {
             this.gameThread.stop();
             this.gameAI.stop();
         }
+    }
+
+    public void initCoiceBoxPlayerTyps(){
+        choiceBoxPlayerTyps.setItems(FXCollections.observableArrayList(gameAI.getPlayerTypes().keySet()));
+        choiceBoxPlayerTyps.setValue(choiceBoxPlayerTyps.getItems().get(0));
+
+    }
+
+    @FXML
+    public void choiceBoxPlayerTypsOnAction(){
+        gameAI.setPlayer(choiceBoxPlayerTyps.getValue().toString());
+
+        buttonReset();
+
     }
 
     public void initTextFieldRuns(){

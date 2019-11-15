@@ -23,4 +23,7 @@ public abstract class Collision {
 
     public abstract void action();
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }
