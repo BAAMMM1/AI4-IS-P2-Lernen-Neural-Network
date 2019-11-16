@@ -63,6 +63,16 @@ public class Field {
         return rows;
     }
 
+    public void setColumns(int columns) {
+        this.columns = columns;
+        this.field = new int[this.columns * rows];
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+        this.field = new int[columns * this.rows];
+    }
+
     public static void main(String[] args) {
         Field field = new Field(15);
     }

@@ -7,21 +7,18 @@ public class Snake {
 
     private SnakePart head;
     private List<SnakePart> tails;
-    private int columns;
-    private int rows;
+    private Field field;
 
     private MoveDirection direction = MoveDirection.LEFT;
 
 
-    public Snake(int fieldColumns, int fieldRows) {
-        this.columns = fieldColumns;
-        this.rows = fieldRows;
-            tails = new ArrayList<>();
-        head = new SnakePart(fieldRows / 2, fieldColumns / 2);
+    public Snake(Field field) {
+        this.field = field;
+        tails = new ArrayList<>();
+        head = new SnakePart(field.getRows() / 2, field.getColumns() / 2);
         tails.add(head);
 
     }
-
 
 
     public void move(MoveDirection direction) {
@@ -95,10 +92,15 @@ public class Snake {
 
     }
 
+    public void nextHead() {
+        tails.remove(head);
+        head = new SnakePart( field.getRows()/ 2, field.getColumns() / 2);
+    }
+
     public void restart() {
         tails.clear();
-        head.setX(columns / 2);
-        head.setY(rows / 2);
+        head.setX(field.getColumns() / 2);
+        head.setY(field.getRows() / 2);
         tails.add(head);
     }
 

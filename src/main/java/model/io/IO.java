@@ -70,6 +70,7 @@ public class IO {
 
     public static void main(String[] args) throws IOException {
 
+        /*
         GameRecord game01 = IO.load(new File("" + System.getProperty("user.dir") + "\\db\\game1210").toURI());
         List<double[]> list = new ArrayList<>();
 
@@ -100,7 +101,7 @@ public class IO {
         }
 
         System.out.println(list.size());
-
+        */
 
     }
 

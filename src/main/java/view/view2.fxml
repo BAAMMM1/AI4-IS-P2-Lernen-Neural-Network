@@ -3,75 +3,126 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1490.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
       <AnchorPane layoutX="-4.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="30.0">
          <children>
-            <TitledPane animated="false" collapsible="false" focusTraversable="false" layoutX="5.0" layoutY="394.0" prefHeight="120.0" prefWidth="190.0" text="Game" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="394.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="180.0">
-                     <children>
-                        <Button fx:id="start" focusTraversable="false" layoutX="15.0" layoutY="17.0" mnemonicParsing="false" onAction="#buttonStart" text="Start" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <Button fx:id="reset" focusTraversable="false" layoutX="13.0" layoutY="65.0" mnemonicParsing="false" onAction="#buttonReset" text="Reset" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" collapsible="false" focusTraversable="false" layoutX="5.0" layoutY="194.0" maxHeight="90.0" maxWidth="190.0" text="Speed" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Slider fx:id="speedSlider" focusTraversable="false" layoutX="-7.0" layoutY="9.0" majorTickUnit="10.0" max="480.0" min="1.0" minorTickCount="1" prefHeight="40.0" prefWidth="159.0" showTickLabels="true" showTickMarks="true" value="100.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" collapsible="false" focusTraversable="false" layoutX="5.0" layoutY="293.0" prefHeight="90.0" text="Playertype" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="188.0">
-                     <children>
-                        <ChoiceBox fx:id="choiceBoxPlayerTyps" focusTraversable="false" layoutX="14.0" layoutY="14.0" onAction="#choiceBoxPlayerTypsOnAction" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" collapsible="false" focusTraversable="false" layoutX="14.0" layoutY="14.0" prefHeight="180.0" text="Field" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="labelRunCounter" layoutX="15.0" layoutY="113.0" text="Label" />
-                        <TextField fx:id="textFieldRuns" focusTraversable="false" layoutX="83.0" layoutY="112.0" prefHeight="25.0" prefWidth="45.0" />
-                     </children></AnchorPane>
-              </content>
-            </TitledPane>
-            <TitledPane animated="false" collapsible="false" focusTraversable="false" layoutX="5.0" layoutY="526.0" text="Result" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="score" focusTraversable="false" layoutX="22.0" layoutY="16.0" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <Label fx:id="average" focusTraversable="false" layoutX="24.0" layoutY="50.0" text="Label" textAlignment="CENTER" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="40.0" />
-                        <Label fx:id="bestScore" focusTraversable="false" layoutX="34.0" layoutY="91.0" text="Label" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="80.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </TitledPane>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TitledPane animated="false" collapsible="false" focusTraversable="false" prefHeight="170.0" text="Field">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Slider fx:id="rowSlider" blockIncrement="1.0" layoutX="128.0" layoutY="22.0" max="40.0" min="2.0" orientation="VERTICAL" prefHeight="69.0" prefWidth="7.0" value="2.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="25.0" />
+                              <Slider fx:id="columnSlider" blockIncrement="1.0" layoutX="29.0" layoutY="21.0" max="71.0" min="2.0" orientation="VERTICAL" prefHeight="71.0" prefWidth="6.0" value="2.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="25.0" />
+                              <Label layoutX="22.0" layoutY="6.0" text="Columns" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0" />
+                              <Label layoutX="114.0" layoutY="15.0" text="Rows" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0" />
+                              <Label fx:id="labelColumns" layoutX="38.0" layoutY="123.0" text="0" textAlignment="CENTER" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="105.0" />
+                              <Label fx:id="labelRows" layoutX="122.0" layoutY="123.0" text="0" textAlignment="CENTER" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="105.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" collapsible="false" focusTraversable="false" prefHeight="90.0" prefWidth="190.0" text="Speed">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Slider fx:id="speedSlider" blockIncrement="1.0" focusTraversable="false" layoutX="-7.0" layoutY="9.0" majorTickUnit="99.0" max="200.0" min="1.0" minorTickCount="1" prefHeight="40.0" prefWidth="159.0" showTickLabels="true" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" collapsible="false" focusTraversable="false" prefHeight="90.0" text="Playertype">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="188.0">
+                           <children>
+                              <ChoiceBox fx:id="choiceBoxPlayerTyps" focusTraversable="false" layoutX="14.0" layoutY="14.0" onAction="#choiceBoxPlayerTypsOnAction" prefWidth="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" collapsible="false" focusTraversable="false" prefHeight="180.0" prefWidth="190.0" text="Game">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="180.0">
+                           <children>
+                              <Button fx:id="start" focusTraversable="false" layoutX="15.0" layoutY="17.0" mnemonicParsing="false" onAction="#buttonStart" text="Start" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <Button fx:id="reset" focusTraversable="false" layoutX="13.0" layoutY="65.0" mnemonicParsing="false" onAction="#buttonReset" text="Reset" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
+                              <Slider fx:id="runsSlider" blockIncrement="1.0" layoutX="24.0" layoutY="106.0" majorTickUnit="50.0" showTickLabels="true" value="1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="105.0" />
+                              <Label layoutX="15.0" layoutY="89.0" text="Runs:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="80.0" />
+                              <Label fx:id="labelRunCounter" layoutX="80.0" layoutY="90.0" text="Label" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="80.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" collapsible="false" focusTraversable="false" text="Result">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="14.0" layoutY="7.0" prefWidth="80.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                                 <children>
+                                    <Label fx:id="score" focusTraversable="false" text="Label">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator prefWidth="80.0" />
+                                    <Label fx:id="average" focusTraversable="false" text="Label" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator layoutX="10.0" layoutY="49.0" prefWidth="80.0" />
+                                    <Label fx:id="bestScore" focusTraversable="false" text="Label">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="19.6" layoutY="19.6" prefWidth="80.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
+                                 <children>
+                                    <Label text="Score:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator prefWidth="80.0" />
+                                    <Label text="Average:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator layoutX="10.0" layoutY="39.0" prefWidth="80.0" />
+                                    <Label text="Best:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="anchorPane2" layoutX="458.0" prefHeight="750.0" prefWidth="403.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+      <AnchorPane fx:id="anchorPane2" layoutX="458.0" prefHeight="750.0" prefWidth="403.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="205.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0">
          <children>
-            <GridPane fx:id="gridPane" focusTraversable="true" layoutX="205.0" onKeyPressed="#input" prefWidth="631.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+            <GridPane fx:id="gridPane" focusTraversable="true" layoutX="205.0" onKeyPressed="#input" prefWidth="631.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -85,24 +136,6 @@
             <HBox alignment="TOP_CENTER" layoutX="14.0" prefHeight="25.0" prefWidth="200.0" spacing="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-      <MenuBar prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
+      <MenuBar prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

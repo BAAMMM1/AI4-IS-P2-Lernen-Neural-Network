@@ -32,7 +32,7 @@ public class GameAI extends Observable {
     public GameAI(int fieldColumns) {
         this.clock = new Clock();
         this.field = new Field(fieldColumns);
-        this.snake = new Snake(field.getColumns(), field.getRows());
+        this.snake = new Snake(field);
         this.score = new Score();
         this.player = new Human(this.field, this.snake);
 
@@ -47,7 +47,7 @@ public class GameAI extends Observable {
     public GameAI(int fieldColumns, int fieldRows) {
         this.clock = new Clock();
         this.field = new Field(fieldColumns, fieldRows);
-        this.snake = new Snake(field.getColumns(), this.field.getRows());
+        this.snake = new Snake(field);
         this.score = new Score();
         this.player = new Human(this.field, this.snake);
 

@@ -22,15 +22,12 @@ import java.util.Observer;
 public class ViewController implements Observer {
 
     private GameAI gameAI;
-    private int gridColumns;
-    private int girdRows;
     private double gridFieldWidth = 40;
 
     private Thread gameThread;
 
     private int fieldColumns = 24;
     private int fieldRows = 14;
-    private double lastWidth = 0.0;
 
     @FXML
     AnchorPane anchorPane;
@@ -54,6 +51,9 @@ public class ViewController implements Observer {
     Slider speedSlider;
 
     @FXML
+    Slider runsSlider;
+
+    @FXML
     Button start;
 
     @FXML
@@ -63,10 +63,19 @@ public class ViewController implements Observer {
     Label labelRunCounter;
 
     @FXML
-    TextField textFieldRuns;
+    Label labelColumns;
+
+    @FXML
+    Label labelRows;
 
     @FXML
     ChoiceBox<String> choiceBoxPlayerTyps;
+
+    @FXML
+    Slider columnSlider;
+
+    @FXML
+    Slider rowSlider;
 
 
     @FXML
@@ -75,26 +84,22 @@ public class ViewController implements Observer {
         gameAI = new GameAI(fieldColumns, fieldRows);
         gameAI.addObserver(this);
 
-
-        gridColumns = gameAI.getField().getColumns();
-        girdRows = gameAI.getField().getRows();
         cleargrid();
 
         gameAI.stop();
 
         initSpeedSlider();
-        initTextFieldRuns();
+        initRunsSlider();
         initCoiceBoxPlayerTyps();
         initGridPaneResizer();
+        initColumnSlider();
+        initRowSlider();
 
         System.out.println(gridPane.getHeight());
         System.out.println((((gridPane.getHeight() / fieldRows)) * fieldColumns) * 2);
 
 
     }
-
-
-
 
     @Override
     public void update(Observable o, Object arg) {
@@ -139,26 +144,26 @@ public class ViewController implements Observer {
     }
 
     public void drawScroe() {
-        score.setText("Score: " + gameAI.getScore().getScore());
-        bestScore.setText("Best Score: " + gameAI.getScore().getBestScore());
-        average.setText("Average Score: " + gameAI.getScore().getAverageScore());
-        labelRunCounter.setText("runs: " + gameAI.getPlayer().getRunCounter() + " / ");
+        score.setText("" + gameAI.getScore().getScore());
+        bestScore.setText("" + gameAI.getScore().getBestScore());
+        average.setText("" + gameAI.getScore().getAverageScore());
+        labelRunCounter.setText(gameAI.getPlayer().getRunCounter() + " / " + gameAI.getRuns());
     }
 
     private void cleargrid() {
         gridPane.getRowConstraints().clear();
         gridPane.getColumnConstraints().clear();
         gridPane.getChildren().clear();
-        for (int a = 0; a < gridColumns; a++) {
+        for (int a = 0; a < gameAI.getField().getColumns(); a++) {
             gridPane.getColumnConstraints().add(new ColumnConstraints());
         }
 
-        for (int a = 0; a < girdRows; a++) {
+        for (int a = 0; a < gameAI.getField().getRows(); a++) {
             gridPane.getRowConstraints().add(new RowConstraints());
         }
 
-        for (int i = 0; i < gridColumns; i++) {
-            for (int j = 0; j < girdRows; j++) {
+        for (int i = 0; i < gameAI.getField().getColumns(); i++) {
+            for (int j = 0; j < gameAI.getField().getRows(); j++) {
                 blankCell(i, j);
             }
         }
@@ -169,24 +174,23 @@ public class ViewController implements Observer {
     private void cleargridSnake() {
 
 
-
     }
 
     private void blankCell(int column, int row) {
         Rectangle rectangle = drawRectangle(gridFieldWidth, gridFieldWidth, "#FFFFFF");
-        rectangle.setStroke(Paint.valueOf("grey"));
+        rectangle.setStroke(Paint.valueOf("#D1D1D1"));
         rectangle.setStrokeWidth(0.5);
         gridPane.add(rectangle, column, row);
     }
 
     private Rectangle drawRectangle(double width, double height, String colorstring) {
 
-        if(((anchorPane2.getHeight() / girdRows) - 1.0) * fieldColumns < anchorPane2.getWidth()){
-            width = (gridPane.getHeight() / girdRows) - 1.0;
-            height = (gridPane.getHeight() / girdRows) - 1.0 ;
+        if (((anchorPane2.getHeight() / gameAI.getField().getRows()) - 1.0) * fieldColumns < anchorPane2.getWidth()) {
+            width = (gridPane.getHeight() / gameAI.getField().getRows()) - 1.0;
+            height = (gridPane.getHeight() / gameAI.getField().getRows()) - 1.0;
         } else {
-            width = (gridPane.getWidth() / gridColumns) - 1.5;
-            height = (gridPane.getWidth() / gridColumns) - 1.5;
+            width = (gridPane.getWidth() / gameAI.getField().getColumns()) - 1.5;
+            height = (gridPane.getWidth() / gameAI.getField().getColumns()) - 1.5;
         }
 
 
@@ -194,14 +198,53 @@ public class ViewController implements Observer {
         rectangle.setFill(Color.web(colorstring));
         GridPane.setHalignment(rectangle, HPos.CENTER);
 
-        lastWidth = width * fieldColumns;
-
         return rectangle;
     }
 
     @FXML
     public void initSpeedSlider() {
-        speedSlider.valueProperty().addListener((ov, old_val, new_val) -> gameAI.getClock().setTime(new_val.intValue()));
+        speedSlider.setValue(speedSlider.getMax() - gameAI.getClock().getTime() + speedSlider.getMin());
+
+        speedSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            gameAI.getClock().setTime((int) (speedSlider.getMax() - new_val.intValue() + speedSlider.getMin()));
+        });
+    }
+
+    private void initRunsSlider() {
+        runsSlider.setValue(gameAI.getRuns());
+        labelRunCounter.setText(gameAI.getPlayer().getRunCounter() + " / " + gameAI.getRuns());
+
+        runsSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            gameAI.setRuns(new_val.intValue());
+            labelRunCounter.setText(gameAI.getPlayer().getRunCounter() + " / " + gameAI.getRuns());
+        });
+    }
+
+    private void initColumnSlider() {
+        columnSlider.setValue(fieldColumns);
+        labelColumns.setText("" + gameAI.getField().getColumns());
+        columnSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            gameAI.getField().setColumns(new_val.intValue());
+            fieldColumns = new_val.intValue();
+            labelColumns.setText("" + new_val.intValue());
+            update(null, null);
+            buttonStart();
+            buttonReset();
+        });
+
+    }
+
+    private void initRowSlider() {
+        rowSlider.setValue(fieldRows);
+        labelRows.setText("" + gameAI.getField().getRows());
+        rowSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            gameAI.getField().setRows(new_val.intValue());
+            fieldRows = new_val.intValue();
+            labelRows.setText("" + new_val.intValue());
+            update(null, null);
+            buttonStart();
+            buttonReset();
+        });
     }
 
     @FXML
@@ -239,20 +282,6 @@ public class ViewController implements Observer {
         buttonReset();
         gameAI.setPlayer(choiceBoxPlayerTyps.getValue().toString());
 
-    }
-
-    public void initTextFieldRuns() {
-        textFieldRuns.setText(gameAI.getRuns() + "");
-
-        textFieldRuns.setOnKeyReleased(event -> {
-            try {
-                int value = Integer.parseInt(textFieldRuns.getText());
-                gameAI.setRuns(value);
-            } catch (NumberFormatException e) {
-                System.out.println(e.getStackTrace());
-            }
-
-        });
     }
 
     private void initGridPaneResizer() {
