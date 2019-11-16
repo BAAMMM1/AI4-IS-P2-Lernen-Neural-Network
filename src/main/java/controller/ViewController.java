@@ -16,8 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.snake.GameAI;
 
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 public class ViewController implements Observer {
 
@@ -26,8 +25,14 @@ public class ViewController implements Observer {
 
     private Thread gameThread;
 
-    private int fieldColumns = 24;
-    private int fieldRows = 14;
+    private int fieldColumns = 44;
+    private int fieldRows = 25;
+
+    private boolean firstInit = true;
+
+    private Rectangle[][] rectangles;
+
+    private List<Tuple<Integer, Integer>> drawsBefore;
 
     @FXML
     AnchorPane anchorPane;
@@ -83,10 +88,9 @@ public class ViewController implements Observer {
 
         gameAI = new GameAI(fieldColumns, fieldRows);
         gameAI.addObserver(this);
-
-        cleargrid();
-
         gameAI.stop();
+
+        drawsBefore = new ArrayList<>();
 
         initSpeedSlider();
         initRunsSlider();
@@ -94,6 +98,7 @@ public class ViewController implements Observer {
         initGridPaneResizer();
         initColumnSlider();
         initRowSlider();
+
 
         System.out.println(gridPane.getHeight());
         System.out.println((((gridPane.getHeight() / fieldRows)) * fieldColumns) * 2);
@@ -109,24 +114,49 @@ public class ViewController implements Observer {
             @Override
             public void run() {
 
-                cleargrid(); // TODO Nicht jedes mal das ganze Feld clearen, nur die Schlange clearen
+                if (firstInit) {
+                    initBlankGridPane();
+                    firstInit = false;
+                }
+
+                //blankAllCells();
+                blankDrawsBeforeSnakeAndPickup(drawsBefore);
+                drawsBefore.clear();
+
+
+                //initBlankGridPane(); // TODO Nicht jedes mal das ganze Feld clearen, nur die Schlange clearen
 
                 for (int i = 0; i < gameAI.getSnake().getTails().size(); i++) {
+                    /*
                     Rectangle rectangle = drawRectangle(gridFieldWidth, gridFieldWidth, "#000000");
                     rectangle.setStroke(Paint.valueOf("grey"));
                     rectangle.setStrokeWidth(0.5);
                     gridPane.add(rectangle, gameAI.getSnake().getTails().get(i).getX(), gameAI.getSnake().getTails().get(i).getY());
+                    */
+                    drawsBefore.add(new Tuple(gameAI.getSnake().getTails().get(i).getX(), gameAI.getSnake().getTails().get(i).getY()));
+                    rectangles[gameAI.getSnake().getTails().get(i).getX()][gameAI.getSnake().getTails().get(i).getY()].setFill(Color.web("#000000"));
                 }
 
+                /*
                 Rectangle rectangle = drawRectangle(gridFieldWidth, gridFieldWidth, "#5B5B5B");
                 rectangle.setStroke(Paint.valueOf("grey"));
                 rectangle.setStrokeWidth(0.5);
                 gridPane.add(rectangle, gameAI.getSnake().getHead().getX(), gameAI.getSnake().getHead().getY());
+                */
 
+
+                drawsBefore.add(new Tuple(gameAI.getSnake().getHead().getX(), gameAI.getSnake().getHead().getY()));
+                rectangles[gameAI.getSnake().getHead().getX()][gameAI.getSnake().getHead().getY()].setFill(Color.web("#5B5B5B"));
+
+                /*
                 rectangle = drawRectangle(gridFieldWidth, gridFieldWidth, "#E8436E");
                 rectangle.setStroke(Paint.valueOf("grey"));
                 rectangle.setStrokeWidth(0.5);
                 gridPane.add(rectangle, gameAI.getField().getPickUp().getX(), gameAI.getField().getPickUp().getY());
+                 */
+
+                drawsBefore.add(new Tuple(gameAI.getField().getPickUp().getX(), gameAI.getField().getPickUp().getY()));
+                rectangles[gameAI.getField().getPickUp().getX()][gameAI.getField().getPickUp().getY()].setFill(Color.web("#E8436E"));
 
                 drawScroe();
 
@@ -150,7 +180,9 @@ public class ViewController implements Observer {
         labelRunCounter.setText(gameAI.getPlayer().getRunCounter() + " / " + gameAI.getRuns());
     }
 
-    private void cleargrid() {
+    private void initBlankGridPane() {
+        drawsBefore.clear();
+        this.rectangles = new Rectangle[gameAI.getField().getColumns()][gameAI.getField().getRows()];
         gridPane.getRowConstraints().clear();
         gridPane.getColumnConstraints().clear();
         gridPane.getChildren().clear();
@@ -162,13 +194,46 @@ public class ViewController implements Observer {
             gridPane.getRowConstraints().add(new RowConstraints());
         }
 
-        for (int i = 0; i < gameAI.getField().getColumns(); i++) {
-            for (int j = 0; j < gameAI.getField().getRows(); j++) {
-                blankCell(i, j);
+        for (int column = 0; column < gameAI.getField().getColumns(); column++) {
+            for (int row = 0; row < gameAI.getField().getRows(); row++) {
+                Rectangle rectangle = getBlankCell(column, row);
+                this.rectangles[column][row] = rectangle;
+                gridPane.add(rectangle, column, row);
             }
         }
 
 
+    }
+
+    public void blankAllCells() {
+
+        for (int columns = 0; columns < rectangles.length; columns++) {
+
+            for (int rows = 0; rows < rectangles[columns].length; rows++) {
+                rectangles[columns][rows].setFill(Color.web("#FFFFFF"));
+            }
+
+        }
+
+    }
+
+    public void blankDrawsBeforeSnakeAndPickup(List<Tuple<Integer, Integer>> before) {
+
+        for (Tuple<Integer, Integer> tuple : before) {
+            rectangles[tuple.x][tuple.y].setFill(Color.web("#FFFFFF"));
+
+        }
+
+    }
+
+    public class Tuple<X, Y> {
+        public final X x;
+        public final Y y;
+
+        public Tuple(X x, Y y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
     private void cleargridSnake() {
@@ -176,11 +241,13 @@ public class ViewController implements Observer {
 
     }
 
-    private void blankCell(int column, int row) {
+    private Rectangle getBlankCell(int column, int row) {
+
         Rectangle rectangle = drawRectangle(gridFieldWidth, gridFieldWidth, "#FFFFFF");
         rectangle.setStroke(Paint.valueOf("#D1D1D1"));
         rectangle.setStrokeWidth(0.5);
-        gridPane.add(rectangle, column, row);
+
+        return rectangle;
     }
 
     private Rectangle drawRectangle(double width, double height, String colorstring) {
@@ -199,6 +266,29 @@ public class ViewController implements Observer {
         GridPane.setHalignment(rectangle, HPos.CENTER);
 
         return rectangle;
+    }
+
+    public void reSizeRectangles(double gridPaneWidth, double gridPaneHeight) {
+        System.out.println("resize with: " + gridPaneWidth + " " + gridPaneHeight);
+
+        double width, height;
+
+        if (((gridPaneHeight / gameAI.getField().getRows())) * fieldColumns < gridPaneWidth) {
+            width = (gridPaneHeight / gameAI.getField().getRows()) - 1.0;
+            height = (gridPaneHeight / gameAI.getField().getRows()) - 1.0;
+        } else {
+            width = (gridPaneWidth / gameAI.getField().getColumns()) - 1.5;
+            height = (gridPaneWidth / gameAI.getField().getColumns()) - 1.5;
+        }
+
+        for (int i = 0; i < rectangles.length; i++) {
+            for (int j = 0; j < rectangles[i].length; j++) {
+                rectangles[i][j].setWidth(width);
+                rectangles[i][j].setHeight(height);
+
+            }
+
+        }
     }
 
     @FXML
@@ -227,9 +317,11 @@ public class ViewController implements Observer {
             gameAI.getField().setColumns(new_val.intValue());
             fieldColumns = new_val.intValue();
             labelColumns.setText("" + new_val.intValue());
-            update(null, null);
-            buttonStart();
             buttonReset();
+            initBlankGridPane();
+
+            update(null, null);
+
         });
 
     }
@@ -241,9 +333,11 @@ public class ViewController implements Observer {
             gameAI.getField().setRows(new_val.intValue());
             fieldRows = new_val.intValue();
             labelRows.setText("" + new_val.intValue());
-            update(null, null);
-            buttonStart();
             buttonReset();
+            initBlankGridPane();
+
+            update(null, null);
+
         });
     }
 
@@ -259,7 +353,7 @@ public class ViewController implements Observer {
         });
 
         this.gameThread.start();
-        cleargrid();
+
 
     }
 
@@ -267,8 +361,9 @@ public class ViewController implements Observer {
     public void buttonReset() {
         if (gameThread != null) {
             this.gameThread.stop();
-            this.gameAI.stop();
+
         }
+        this.gameAI.stop();
     }
 
     public void initCoiceBoxPlayerTyps() {
@@ -286,39 +381,17 @@ public class ViewController implements Observer {
 
     private void initGridPaneResizer() {
 
-        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-            if (oldScene == null && newScene != null) {
-                // scene is set for the first time. Now its the time to listen stage changes.
-                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-                    if (oldWindow == null && newWindow != null) {
-                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-                        ((Stage) newWindow).heightProperty().addListener((a, b, c) -> {
-                            if (c != b) {
-                                update(null, null);
-                                System.out.println(newWindow.getHeight());
-                            }
-                        });
-                    }
-                });
-            }
+        gridPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            reSizeRectangles(newVal.doubleValue(), gridPane.getHeight());
+            update(null, null);
         });
 
-        anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
-            if (oldScene == null && newScene != null) {
-                // scene is set for the first time. Now its the time to listen stage changes.
-                newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
-                    if (oldWindow == null && newWindow != null) {
-                        // stage is set. now is the right time to do whatever we need to the stage in the controller.
-                        ((Stage) newWindow).widthProperty().addListener((a, b, c) -> {
-                            if (c != b) {
-                                update(null, null);
-                                System.out.println(newWindow.getWidth());
-                            }
-                        });
-                    }
-                });
-            }
+        gridPane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            reSizeRectangles(gridPane.getWidth(), newVal.doubleValue());
+            update(null, null);
         });
+
+
     }
 
 }

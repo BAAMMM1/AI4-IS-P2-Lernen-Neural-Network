@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="820.0" prefWidth="1490.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1460.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewController">
    <children>
       <AnchorPane layoutX="-4.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -25,12 +25,12 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Slider fx:id="rowSlider" blockIncrement="1.0" layoutX="128.0" layoutY="22.0" max="40.0" min="2.0" orientation="VERTICAL" prefHeight="69.0" prefWidth="7.0" value="2.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="25.0" />
-                              <Slider fx:id="columnSlider" blockIncrement="1.0" layoutX="29.0" layoutY="21.0" max="71.0" min="2.0" orientation="VERTICAL" prefHeight="71.0" prefWidth="6.0" value="2.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="25.0" />
-                              <Label layoutX="22.0" layoutY="6.0" text="Columns" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0" />
-                              <Label layoutX="114.0" layoutY="15.0" text="Rows" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0" />
-                              <Label fx:id="labelColumns" layoutX="38.0" layoutY="123.0" text="0" textAlignment="CENTER" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="105.0" />
-                              <Label fx:id="labelRows" layoutX="122.0" layoutY="123.0" text="0" textAlignment="CENTER" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="105.0" />
+                              <Slider fx:id="rowSlider" blockIncrement="1.0" focusTraversable="false" layoutX="128.0" layoutY="22.0" max="62.0" min="2.0" orientation="VERTICAL" prefHeight="69.0" prefWidth="7.0" value="2.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="25.0" />
+                              <Slider fx:id="columnSlider" blockIncrement="1.0" focusTraversable="false" layoutX="29.0" layoutY="21.0" max="146.0" min="2.0" orientation="VERTICAL" prefHeight="71.0" prefWidth="6.0" value="2.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="25.0" />
+                              <Label focusTraversable="false" layoutX="22.0" layoutY="6.0" text="Columns" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0" />
+                              <Label focusTraversable="false" layoutX="114.0" layoutY="15.0" text="Rows" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="5.0" />
+                              <Label fx:id="labelColumns" focusTraversable="false" layoutX="38.0" layoutY="123.0" text="0" textAlignment="CENTER" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="105.0" />
+                              <Label fx:id="labelRows" focusTraversable="false" layoutX="122.0" layoutY="123.0" text="0" textAlignment="CENTER" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="105.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -59,9 +59,9 @@
                            <children>
                               <Button fx:id="start" focusTraversable="false" layoutX="15.0" layoutY="17.0" mnemonicParsing="false" onAction="#buttonStart" text="Start" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                               <Button fx:id="reset" focusTraversable="false" layoutX="13.0" layoutY="65.0" mnemonicParsing="false" onAction="#buttonReset" text="Reset" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
-                              <Slider fx:id="runsSlider" blockIncrement="1.0" layoutX="24.0" layoutY="106.0" majorTickUnit="50.0" showTickLabels="true" value="1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="105.0" />
-                              <Label layoutX="15.0" layoutY="89.0" text="Runs:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="80.0" />
-                              <Label fx:id="labelRunCounter" layoutX="80.0" layoutY="90.0" text="Label" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="80.0" />
+                              <Slider fx:id="runsSlider" blockIncrement="1.0" focusTraversable="false" layoutX="24.0" layoutY="106.0" majorTickUnit="50.0" showTickLabels="true" value="1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="105.0" />
+                              <Label focusTraversable="false" layoutX="15.0" layoutY="89.0" text="Runs:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="80.0" />
+                              <Label fx:id="labelRunCounter" focusTraversable="false" layoutX="80.0" layoutY="90.0" text="Label" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="80.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -77,13 +77,13 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
-                                    <Separator prefWidth="80.0" />
+                                    <Separator focusTraversable="false" prefWidth="80.0" />
                                     <Label fx:id="average" focusTraversable="false" text="Label" textAlignment="CENTER">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
-                                    <Separator layoutX="10.0" layoutY="49.0" prefWidth="80.0" />
+                                    <Separator focusTraversable="false" layoutX="10.0" layoutY="49.0" prefWidth="80.0" />
                                     <Label fx:id="bestScore" focusTraversable="false" text="Label">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
@@ -93,19 +93,19 @@
                               </VBox>
                               <VBox layoutX="19.6" layoutY="19.6" prefWidth="80.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="5.0">
                                  <children>
-                                    <Label text="Score:">
+                                    <Label focusTraversable="false" text="Score:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <Separator prefWidth="80.0" />
-                                    <Label text="Average:">
+                                    <Separator focusTraversable="false" prefWidth="80.0" />
+                                    <Label focusTraversable="false" text="Average:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <Separator layoutX="10.0" layoutY="39.0" prefWidth="80.0" />
-                                    <Label text="Best:">
+                                    <Separator focusTraversable="false" layoutX="10.0" layoutY="39.0" prefWidth="80.0" />
+                                    <Label focusTraversable="false" text="Best:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
