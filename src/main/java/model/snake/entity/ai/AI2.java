@@ -2,9 +2,9 @@ package model.snake.entity.ai;
 
 import model.io.IO;
 import model.snake.entity.Field;
+import model.snake.entity.MoveDirection;
 import model.snake.entity.Player;
 import model.snake.entity.Snake;
-import model.snake.entity.MoveDirection;
 import model.snake.entity.ai.network.Network;
 import model.snake.entity.ai.network.trainset.TrainSet;
 
@@ -14,18 +14,18 @@ import java.util.Arrays;
 /**
  * Per Analyse
  */
-public class AI extends Player {
+public class AI2 extends Player {
 
     private Network brain;
 
-    public AI(Field field, Snake snake) {
+    public AI2(Field field, Snake snake) {
         super(field, snake);
-        this.brain = IO.loadNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\ai").toURI());
+        this.brain = IO.loadNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\ai2").toURI());
         this.field = field;
         this.snake = snake;
 
         if(brain == null){
-            this.brain = new Network(6, 5, 5, 1);
+            this.brain = new Network(6, 5, 5, 3);
             this.initTrainingData();
         }
     }
@@ -33,43 +33,44 @@ public class AI extends Player {
     // [left?, straight?, right?, aleft?, astraight?, aright?] -> [0 ->left, 0.5 -> straight, 1 -> right]
     public void initTrainingData(){
 
-        TrainSet set = new TrainSet(6, 1);
+        TrainSet set = new TrainSet(6, 3);
 
-        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0}, new double[]{1});
-        set.addData(new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0}, new double[]{1});
-        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0}, new double[]{0});
-        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0}, new double[]{1});
-        set.addData(new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 1.0}, new double[]{0.5});
-        set.addData(new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 0.0}, new double[]{0});
-        set.addData(new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 0.0}, new double[]{1});
-        set.addData(new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 1.0}, new double[]{0});
-        set.addData(new double[]{1.0, 0.0, 1.0, 1.0, 1.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{1.0, 0.0, 1.0, 0.0, 1.0, 1.0}, new double[]{0.5});
-        set.addData(new double[]{0.0, 1.0, 1.0, 0.0, 1.0, 0.0}, new double[]{0});
-        set.addData(new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 1.0}, new double[]{0});
-        set.addData(new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 1.0}, new double[]{0.5});
-        set.addData(new double[]{1.0, 1.0, 0.0, 1.0, 1.0, 0.0}, new double[]{1});
-        set.addData(new double[]{1.0, 0.0, 1.0, 1.0, 0.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0}, new double[]{1});
-        set.addData(new double[]{1.0, 0.0, 1.0, 0.0, 1.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{1.0, 0.0, 1.0, 0.0, 1.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{1.0, 1.0, 0.0, 1.0, 0.0, 0.0}, new double[]{1});
-        set.addData(new double[]{0.0, 1.0, 1.0, 0.0, 1.0, 1.0}, new double[]{0});
-        set.addData(new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0}, new double[]{0.5});
-        set.addData(new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0}, new double[]{0});
-        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0}, new double[]{1});
+        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0}, new double[]{0.0, 1.0, 0.0});
 
+        set.addData(new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0}, new double[]{1.0, 0.0, 0.0});
+        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0}, new double[]{1.0, 0.0, 0.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 0.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 1.0}, new double[]{1.0, 0.0, 0.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 1.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0}, new double[]{1.0, 0.0, 0.0});
+        set.addData(new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0}, new double[]{1.0, 0.0, 0.0});
+        //set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{1.0, 1.0, 0.0, 0.0, 1.0, 0.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{1.0, 0.0, 0.0, 0.0, 1.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{1.0, 1.0, 0.0, 0.0, 0.0, 0.0}, new double[]{0.0, 0.0, 1.0});
+        set.addData(new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 1.0}, new double[]{1.0, 0.0, 0.0});
+        set.addData(new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 0.0}, new double[]{0.0, 1.0, 0.0});
+        set.addData(new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 0.0}, new double[]{1.0, 0.0, 0.0});
+        set.addData(new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0}, new double[]{0.0, 0.0, 1.0});
 
 
         brain.train(set, 1000000, set.size());
 
-        IO.saveNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\ai").toURI(), brain);
+        IO.saveNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\ai2").toURI(), brain);
     }
 
     /**
@@ -86,25 +87,23 @@ public class AI extends Player {
         this.lastOutput = out.clone();
 
         System.out.println("input: " + Arrays.toString(input));
-        System.out.println("output: " + Arrays.toString(out) + String.format("%.2f", out[0]));
+        System.out.println("output: " + Arrays.toString(out));
 
         AIDirection direction;
 
-        if (out[0] >= 0.0 && out[0] <= 0.34){
-            System.out.println("move left");
+
+        if(out[0] > out[1] && out[0] > out[2] ){
             direction = AIDirection.LEFT;
-        }
-        else if (out[0] >= 0.35 && out[0] <= 0.67){
-            System.out.println("move straight");
+
+        } else if(out[1] > out[0] && out[1] > out[2]){
             direction = AIDirection.STRAIGHT;
-        }
-        else if (out[0] >= 0.68 && out[0] <= 1.0){
-            System.out.println("move right");
+
+        } else {
             direction = AIDirection.RIGHT;
-        } else{
-            System.out.println("move else");
-            direction = AIDirection.STRAIGHT;
+
         }
+
+        System.out.println("calc: " + direction);
 
         return convertDirection(direction);
     }

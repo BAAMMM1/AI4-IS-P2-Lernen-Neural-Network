@@ -3,9 +3,7 @@ package model.snake;
 
 import model.snake.clock.Clock;
 import model.snake.entity.*;
-import model.snake.entity.ai.AI;
-import model.snake.entity.ai.AILearnedByHuman;
-import model.snake.entity.ai.Human;
+import model.snake.entity.ai.*;
 import model.snake.event.BodyCollision;
 import model.snake.event.Collision;
 import model.snake.event.PickUpCollision;
@@ -16,7 +14,7 @@ import org.reflections.scanners.SubTypesScanner;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
-public class GameAI extends Observable {
+public class Game extends Observable {
 
     private int runs = 10;
 
@@ -29,7 +27,7 @@ public class GameAI extends Observable {
 
     private Player player;
 
-    public GameAI(int fieldColumns) {
+    public Game(int fieldColumns) {
         this.clock = new Clock();
         this.field = new Field(fieldColumns);
         this.snake = new Snake(field);
@@ -44,7 +42,7 @@ public class GameAI extends Observable {
 
     }
 
-    public GameAI(int fieldColumns, int fieldRows) {
+    public Game(int fieldColumns, int fieldRows) {
         this.clock = new Clock();
         this.field = new Field(fieldColumns, fieldRows);
         this.snake = new Snake(field);
@@ -149,15 +147,19 @@ public class GameAI extends Observable {
 
     public void setPlayer(String player) {
 
-        if(player.equals("Human")){
+        if (player.equals("Human")) {
             this.player = new Human(field, snake);
-        } else if(player.equals("AI")){
+        } else if (player.equals("AI")) {
             this.player = new AI(field, snake);
+        } else if (player.equals("AI2")) {
+            this.player = new AI2(field, snake);
+        } else if (player.equals("AILearnedByHuman2")) {
+                this.player = new AILearnedByHuman2(field, snake);
         } else {
             this.player = new AILearnedByHuman(field, snake);
         }
 
-        for (Collision collision: collisions) {
+        for (Collision collision : collisions) {
             collision.setPlayer(this.player);
         }
 
