@@ -9,18 +9,19 @@ import java.util.Arrays;
 public class Network {
 
     private double[][] output; // [layer][neuron] - Output für jedes Neuron
-    private double[][][] weights; // [layer][neuron][prevNeuron] - Kante der Neuronen
+    private double[][][] weights; // [layer][neuron][prevNeuron] - Kantengewicht der Neuronen
     private double[][] bias;    // [layer][neuron] - Jedes Neuron hat einen bias
 
-    private double[][] error_signal;
-    private double[][] output_derivative;
+    private double[][] error_signal; // Berechneter error-Wert für jedes einzelene Neuron (Backpropagation)
+    private double[][] output_derivative; // Die Ableitung des Ergebnis der sigmod Funktion für jedes Neuron (Backpropagation)
 
     public int[] NETWORK_LAYER_SIZES; // Anzahl an Neuron die jeder Layer hat bsp.: [4, 4] Dann hat der Input-Layer 4 Neuronen, der Ouput-Layer 4 Neuronen
     public int INPUT_SIZE;    // Anzahl an Neuronen der input Layer hat
     public int OUTPUT_SIZE;   // Anzahl an Neuronen die der output Layer hat
-    public int NETWORK_SIZE;  // Anzahl an Layer des  Netzwerks
+    public int NETWORK_SIZE;  // Anzahl an Layer des Netzwerks
 
 
+    // Initialisierung
     public Network(int... network_layer_size) {
         NETWORK_LAYER_SIZES = network_layer_size;
         this.INPUT_SIZE = NETWORK_LAYER_SIZES[0];
@@ -38,11 +39,13 @@ public class Network {
             this.output[i] = new double[NETWORK_LAYER_SIZES[i]];
             this.error_signal[i] = new double[NETWORK_LAYER_SIZES[i]];
             this.output_derivative[i] = new double[NETWORK_LAYER_SIZES[i]];
-            //this.bias[i] = new double[NETWORK_LAYER_SIZES[i]];
+
+            // Bias-Werte werden mit Zufallswerten initialisiert
             this.bias[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], 0.3, 0.7);
 
+            //weights nicht für den input layer (er hat keinen Vorherigen Layer)
             if(i > 0){
-                //weights[i] = new double[NETWORK_LAYER_SIZES[i]][NETWORK_LAYER_SIZES[i-1]];
+                // weights werden mit Zufallswerten zwischen den bounds initialisiert
                 weights[i] = NetworkTools.createRandomArray(
                         NETWORK_LAYER_SIZES[i],
                         NETWORK_LAYER_SIZES[i-1],
@@ -54,25 +57,36 @@ public class Network {
 
     }
 
+    // Part 1
+    // Feedforward process
+    // Phase 1. Sum
+    // Phase 2. Aktivierung
     public double[] calculate(double... input){
         if(input.length != this.INPUT_SIZE) return null; // Die Berechnung kann nicht durchgeführt werden, der input übereinstimmt nicht mit den Anzahlen an Neuronen im Input-Layer
-        this.output[0] = input;
+        this.output[0] = input; // Output[0] dient als Puffer
 
+        // Für jeden Layer
         for(int layer = 1; layer < NETWORK_SIZE; layer++){
 
+            // Für jedes Neuron im Layer
             for(int neuron = 0; neuron < NETWORK_LAYER_SIZES[layer]; neuron++){
 
+                // Eingangsfunktion: Sigma (Sum) für das jeweilige Neuron - Zusammenrechnen der gewichteten Eingänge (Alle Kanten) der vorherigen Neuron + bias
                 double sum = bias[layer][neuron];
                 for(int prevNeuron = 0; prevNeuron < NETWORK_LAYER_SIZES[layer-1]; prevNeuron++){
                     sum += output[layer-1][prevNeuron] * weights[layer][neuron][prevNeuron];
                 }
 
+                // Aktivierungsfunktion: Für das jeweilige Neuron - Angewendet auf den addierten Eingang
                 output[layer][neuron] = sigmod(sum);
+
+                // Setzen des output_derivate
                 output_derivative[layer][neuron] = (output[layer][neuron] * (1 - output[layer][neuron]));
 
             }
         }
-        return output[NETWORK_SIZE-1];
+
+        return output[NETWORK_SIZE-1]; // Wiedergabe des Output-Layers (letzter im Output array)
     }
 
     private double sigmod(double x){
@@ -83,40 +97,72 @@ public class Network {
     traning
      */
 
+    // Part 2
+    // Backpropagation Algorithm
     private void train(double[] input, double[] target, double eta){ // eta = learning rate
 
         if(input.length != INPUT_SIZE || target.length != OUTPUT_SIZE) return;
 
+        // 1. Outputs für den Input berechnen
         calculate(input);
+
+        // 2. Berechnen des Backprop Error
         backpropError(target);
+
+        // 3. Weights anpassen
         updateWeights(eta);
 
     }
 
     public void backpropError(double[] target){
+        // 1. Ausgehend vom OutputLayer, beginne beim ersten Neuron des Output Layers, berechne
+        // (Ist-Output-für-dieses-Neuron - Ziel-Output-für-dieses-Neuron) * output_derivate-für-dieses-Neuron
         for (int neuron = 0; neuron < NETWORK_LAYER_SIZES[NETWORK_SIZE - 1]; neuron++) {
             error_signal[NETWORK_SIZE - 1][neuron] = (output[NETWORK_SIZE - 1][neuron] - target[neuron])
                     * output_derivative[NETWORK_SIZE - 1][neuron];
         }
+
+
+        // 2. Von dem Layer hinter dem Output-Layer (Hidden-Layers) gehe durch Vorgänger Layer (außer dem Input-Layer > 0)
         for (int layer = NETWORK_SIZE - 2; layer > 0 ; layer--) {
+
+            // 3. Beginne beim ersten Neuron des Layers -> aktuelles Neuron
+            //
             for (int neuron = 0; neuron < NETWORK_LAYER_SIZES[layer]; neuron++) {
                 double sum = 0;
 
+                // 4. Für alle Nachfolgene Neuron vom aktuellen Neuron
+                // Summiere die Werte: (gewicht-zum-Nachfolgenen-Neuron * errorsignal-zum-Nachfolgenen-Neuron)
                 for (int nextNeuron = 0; nextNeuron < NETWORK_LAYER_SIZES[layer + 1]; nextNeuron++) {
                     sum += weights[layer + 1][nextNeuron][neuron] * error_signal[layer + 1][nextNeuron];
                 }
+
+
+                // 5. Setze für aktuelles Neuron das error_signal neu
+                // Summe der Berechnung * der berechneten Ableitung der sigmod für das aktuelle Neuron
                 this.error_signal[layer][neuron] = sum * output_derivative[layer][neuron];
             }
+
         }
+
+
     }
 
-    public void updateWeights(double eta){
+    public void updateWeights(double learningRate){
+
+        // 6. Ausgehend vom Layer nach dem Input-Layer bist zum Output-Layer
         for (int layer = 1; layer < NETWORK_SIZE; layer++) {
+
+            // Für jedes Neuron im aktuellen Layer
             for (int neuron = 0; neuron < NETWORK_LAYER_SIZES[layer]; neuron++) {
 
-                double delta = - eta * error_signal[layer][neuron];
+                // Berechne das delta
+                double delta = - learningRate * error_signal[layer][neuron];
+
+                // Passe den Bias mit dem Delta
                 bias[layer][neuron] += delta;
 
+                // Passe das Gewicht zu jedem vorheriges Neuron das Gewicht an der Kante an
                 for (int prevNeuron = 0; prevNeuron < NETWORK_LAYER_SIZES[layer -1 ]; prevNeuron++) {
                     weights[layer][neuron][prevNeuron] += delta * output[layer - 1][prevNeuron];
                 }

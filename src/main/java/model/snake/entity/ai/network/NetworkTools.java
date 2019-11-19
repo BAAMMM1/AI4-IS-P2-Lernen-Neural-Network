@@ -4,7 +4,7 @@ public class NetworkTools {
 
     public static double[] createArray(int size, double init_value){
 
-        // Erstt ein Array mit der Größe Size.
+        // Erstellt ein Array mit der Größe Size.
         // Jeder Index in diesem Array ist mit dem init_value initialisiert.
 
         if(size < 1){
@@ -19,7 +19,7 @@ public class NetworkTools {
 
     public static double[] createRandomArray(int size, double lower_bound, double upper_bound){
 
-        // Erstt ein Array mit der Größe Size.
+        // Erstellt ein Array mit der Größe Size.
         // Jeder Index in diesem Array ist mit einem random zwischen den bounds initialisiert.
 
         if(size < 1){
@@ -34,7 +34,7 @@ public class NetworkTools {
 
     public static double[][] createRandomArray(int sizeX, int sizeY, double lower_bound, double upper_bound){
 
-        // Erstt ein 2D-Array mit den Größe Size [x][y].
+        // Erstellt ein 2D-Array mit den Größe Size [x][y].
         // Jeder Index in diesem Array ist mit einem random zwischen den bounds initialisiert.
 
 
