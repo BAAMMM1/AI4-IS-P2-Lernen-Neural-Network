@@ -3,6 +3,6 @@
 
 Projekt im Rahmen des Intelligente Systeme Praktikum zum Thema Lernen - Neuronale Netzwerke
 
-![](https://git.haw-hamburg.de/abr227/ai4-is-p2-lernen/-/raw/master/teaser.gif)
+![](https://github.com/BAAMMM1/AI4-IS-P2-Lernen/blob/master/teaser.gif)
 
 </div>
