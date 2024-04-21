@@ -11,15 +11,22 @@ import javafx.stage.WindowEvent;
 import java.io.File;
 import java.net.URL;
 
+import dev.graumann.guidecorator.GUIDecorator;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        /*
         FXMLLoader fxmlLoader = new FXMLLoader();
 
         URL path = new File(System.getProperty("user.dir") + "/src/main/java/view/view2.fxml").toURI().toURL();
 
         Parent root = FXMLLoader.load(path);
+        */
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/view2.fxml"));
+        Parent root = fxmlLoader.load();
 
         primaryStage.setTitle("Neuronal Network - Snake Game");
         primaryStage.setScene(new Scene(root));

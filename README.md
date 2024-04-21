@@ -1,8 +1,21 @@
 # AI4-IS-P2-Lernen-Neural-Network
-<div align="center">
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![JavaFX](https://img.shields.io/badge/javafx-%23FF0000.svg?style=for-the-badge&logo=javafx&logoColor=white)
 
-Projekt im Rahmen des Intelligente Systeme Praktikum zum Thema Lernen - Neuronale Netzwerke
+## Description
+Project as part of the intelligent systems practical course on learning neural networks.
 
-![](https://github.com/BAAMMM1/AI4-IS-P2-Lernen/blob/master/teaser.gif)
+![](https://github.com/BAAMMM1/AI4-IS-P2-Lernen-Neural-Network/blob/dd4ec95e4c5b40868781d019e80a0ab983bb25a7/teaser.gif)
 
-</div>
+## Requirements
+- Java JDK v21 installed on your machine
+
+## How to run?
+Linux:
+```
+./gradlew run
+```
+
+Windows:
+```
+.\gradlew.bat run
+```

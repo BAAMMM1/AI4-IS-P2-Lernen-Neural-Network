@@ -1,0 +1,112 @@
+.controlPane {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 0 0 10 0;
+    -fx-border-insets: 0 0 10 0;
+    -fx-background-insets: 0 0 10 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 4);
+    -fx-min-height: 70;
+}
+
+
+.controlPane .button{
+    -fx-text-fill: #000000;
+}
+
+.controlPane .button:hover{
+    -fx-background-color: #dededd;
+    -fx-text-fill: #000000;
+}
+
+.controlPane .toggle-button{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-pref-width: 100;
+    -fx-pref-height: 48;
+}
+
+.controlPane .toggle-button:hover{
+    -fx-background-color: #dededd;
+    -fx-text-fill: #000000;
+}
+
+.controlPane .toggle-button:selected:focused{
+    -fx-background-color: #59acef;
+    -fx-text-fill: #000000;
+}
+
+.controlPane .toggle-button:selected .svgIcon{
+    -fx-fill: #000000;
+}
+
+
+.controlPane .toggle-button .svgIcon{
+    -fx-fill: #4289c8;
+}
+
+.controlPane .button .svgIcon{
+    -fx-fill: #4289c8;
+}
+
+.controlPane .choice-box{
+    -fx-text-inner-color: #000000;
+    -fx-prompt-text-fill: #000000;
+}
+
+.controlPane .choice-box:hover{
+    -fx-background-color: #dededd;
+    -fx-border-width: 1px 1px 1px 1px;
+
+}
+
+
+.controlPane .choice-box .cell {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-size: 12;
+    -fx-font-weight: normal;
+    -fx-alignment: center;
+}
+
+.controlPane .choice-box .list-view {
+
+}
+
+.controlPane .choice-box .arrow {
+    -fx-background-color: #4289c8;
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 3;
+    -fx-rotate: 90;
+    -fx-shape: "M10 8.64L15.27 12 10 15.36V8.64M8 5v14l11-7L8 5z"
+}
+
+
+.controlPane .choice-box .list-view .list-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-font-size: 12;
+    -fx-font-weight: normal;
+    -fx-alignment: center-left;
+}
+
+.controlPane .choice-box .list-view .list-cell:hover {
+    -fx-background-color: #f3f2f1;
+}
+
+.controlPane .text-field{
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-pref-width: 150;
+    -fx-pref-height: 51;
+    -fx-border-color: #eaeaea;
+}
+
+.grid-pane {
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+
+.label {
+    -fx-text-fill: #000000;
+    -fx-font-size: 12;
+    -fx-font-weight: normal;
+}
