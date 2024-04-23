@@ -1,3 +1,4 @@
+package dev.graumann.neuralnetwork;
 import controller.ViewController;
 import javafx.application.Application;
 import javafx.application.Platform;
