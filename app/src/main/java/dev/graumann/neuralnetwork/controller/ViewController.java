@@ -346,7 +346,7 @@ public class ViewController implements Observer {
     public void buttonStart() {
 
         if (gameThread != null) {
-            this.gameThread.stop();
+            this.game.stop();
         }
 
         this.gameThread = new Thread(() -> {
@@ -360,10 +360,6 @@ public class ViewController implements Observer {
 
     @FXML
     public void buttonReset() {
-        if (gameThread != null) {
-            this.gameThread.stop();
-
-        }
         this.game.stop();
     }
 

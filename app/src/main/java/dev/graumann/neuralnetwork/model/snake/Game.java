@@ -126,6 +126,7 @@ public class Game extends Observable {
         field.nextPickUp();
         setChanged();
         notifyObservers();
+        this.play = false;
     }
 
     public Map<String, String> getPlayerTypes() {
