@@ -365,6 +365,7 @@ public class ViewController implements Observer {
 
     public void initCoiceBoxPlayerTyps() {
         choiceBoxPlayerTyps.setItems(FXCollections.observableArrayList(game.getPlayerTypes().keySet()));
+        // remove the humand player
         choiceBoxPlayerTyps.getItems().remove(0);
         choiceBoxPlayerTyps.setValue(choiceBoxPlayerTyps.getItems().get(0));
 

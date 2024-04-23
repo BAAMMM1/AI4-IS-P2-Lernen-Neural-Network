@@ -45,3 +45,7 @@ jar {
         attributes 'Main-Class': javaMainClass
     }
 }
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
+}
