@@ -1,8 +1,8 @@
-package model.snake.entity.ai.network;
+package dev.graumann.neuralnetwork.model.snake.entity.ai.network;
 
 
 
-import model.snake.entity.ai.network.trainset.TrainSet;
+import dev.graumann.neuralnetwork.model.snake.entity.ai.network.trainset.TrainSet;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package model.snake.clock;
+package dev.graumann.neuralnetwork.model.snake.clock;
 
 public class Clock {
 

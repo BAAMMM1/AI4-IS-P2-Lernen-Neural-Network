@@ -1,4 +1,4 @@
-package model.io;
+package dev.graumann.neuralnetwork.model.io;
 
 import java.util.List;
 import java.util.Set;

@@ -1,9 +1,9 @@
-package model.snake.event;
+package dev.graumann.neuralnetwork.model.snake.event;
 
-import model.snake.entity.Field;
-import model.snake.entity.Player;
-import model.snake.entity.Score;
-import model.snake.entity.Snake;
+import dev.graumann.neuralnetwork.model.snake.entity.Field;
+import dev.graumann.neuralnetwork.model.snake.entity.Player;
+import dev.graumann.neuralnetwork.model.snake.entity.Score;
+import dev.graumann.neuralnetwork.model.snake.entity.Snake;
 
 public class WallColision extends Collision{
 

@@ -13,7 +13,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import model.snake.Game;
+import dev.graumann.neuralnetwork.model.snake.Game;
 
 import java.util.*;
 

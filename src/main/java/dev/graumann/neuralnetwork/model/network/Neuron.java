@@ -1,4 +1,4 @@
-package model.network;
+package dev.graumann.neuralnetwork.model.network;
 
 import java.util.List;
 

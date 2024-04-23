@@ -1,4 +1,4 @@
-package model.snake.entity.ai;
+package dev.graumann.neuralnetwork.model.snake.entity.ai;
 
 public enum AIDirection {
 

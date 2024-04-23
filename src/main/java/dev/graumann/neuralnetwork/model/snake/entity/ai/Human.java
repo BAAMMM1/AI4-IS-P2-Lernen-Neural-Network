@@ -1,11 +1,11 @@
-package model.snake.entity.ai;
+package dev.graumann.neuralnetwork.model.snake.entity.ai;
 
 import javafx.scene.input.KeyCode;
-import model.io.IO;
-import model.snake.entity.Field;
-import model.snake.entity.MoveDirection;
-import model.snake.entity.Player;
-import model.snake.entity.Snake;
+import dev.graumann.neuralnetwork.model.io.IO;
+import dev.graumann.neuralnetwork.model.snake.entity.Field;
+import dev.graumann.neuralnetwork.model.snake.entity.MoveDirection;
+import dev.graumann.neuralnetwork.model.snake.entity.Player;
+import dev.graumann.neuralnetwork.model.snake.entity.Snake;
 
 import java.io.File;
 import java.util.ArrayList;

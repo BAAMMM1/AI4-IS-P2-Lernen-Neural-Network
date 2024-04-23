@@ -1,13 +1,13 @@
-package model.snake;
+package dev.graumann.neuralnetwork.model.snake;
 
 
-import model.snake.clock.Clock;
-import model.snake.entity.*;
-import model.snake.entity.ai.*;
-import model.snake.event.BodyCollision;
-import model.snake.event.Collision;
-import model.snake.event.PickUpCollision;
-import model.snake.event.WallColision;
+import dev.graumann.neuralnetwork.model.snake.clock.Clock;
+import dev.graumann.neuralnetwork.model.snake.entity.*;
+import dev.graumann.neuralnetwork.model.snake.entity.ai.*;
+import dev.graumann.neuralnetwork.model.snake.event.BodyCollision;
+import dev.graumann.neuralnetwork.model.snake.event.Collision;
+import dev.graumann.neuralnetwork.model.snake.event.PickUpCollision;
+import dev.graumann.neuralnetwork.model.snake.event.WallColision;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -130,7 +130,7 @@ public class Game extends Observable {
 
     public Map<String, String> getPlayerTypes() {
 
-        Set<Class<? extends Player>> searchAlgortihms = new Reflections("model.snake",
+        Set<Class<? extends Player>> searchAlgortihms = new Reflections("dev.graumann.neuralnetwork.model.snake",
                 new SubTypesScanner(false))
                 .getSubTypesOf(Player.class);
 

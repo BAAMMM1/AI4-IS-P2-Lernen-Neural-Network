@@ -1,4 +1,4 @@
-package model.snake.entity.ai.network;
+package dev.graumann.neuralnetwork.model.snake.entity.ai.network;
 
 public class NetworkTools {
 

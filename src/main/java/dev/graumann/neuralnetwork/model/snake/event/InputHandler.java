@@ -1,6 +1,6 @@
-package model.snake.event;
+package dev.graumann.neuralnetwork.model.snake.event;
 
-import model.snake.entity.MoveDirection;
+import dev.graumann.neuralnetwork.model.snake.entity.MoveDirection;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

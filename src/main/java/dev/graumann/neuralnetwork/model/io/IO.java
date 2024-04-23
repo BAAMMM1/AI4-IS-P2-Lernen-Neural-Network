@@ -1,7 +1,7 @@
-package model.io;
+package dev.graumann.neuralnetwork.model.io;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.snake.entity.ai.network.Network;
+import dev.graumann.neuralnetwork.model.snake.entity.ai.network.Network;
 
 import java.io.File;
 import java.io.IOException;
