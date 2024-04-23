@@ -4,7 +4,7 @@
 ## Description
 This project showcases a neural network trained to play Snake and was part of the Intelligent Systems practical course on learning neural networks.
 
-![](https://github.com/BAAMMM1/AI4-IS-P2-Lernen-Neural-Network/blob/dd4ec95e4c5b40868781d019e80a0ab983bb25a7/teaser.gif)
+![](https://github.com/BAAMMM1/AI4-IS-P2-Lernen-Neural-Network/blob/85c1e8c4fcd464ff028963eec5f23870f8f0ae7d/images/teaser.gif)
 
 ## Requirements
 - Java JDK v21 installed on your machine
