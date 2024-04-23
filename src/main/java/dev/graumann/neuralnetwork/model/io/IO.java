@@ -5,6 +5,7 @@ import dev.graumann.neuralnetwork.model.snake.entity.ai.network.Network;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.*;
 
@@ -46,6 +47,23 @@ public class IO {
 
         try {
             return new ObjectMapper().readValue(new File(file), Network.class);
+        } catch (IOException e) {
+            System.err.println("Netzwerk konnte nicht gefunden werden.");
+            System.err.println("Neues Netzwerk wird trainiert.");
+        }
+
+
+        return null;
+    }
+
+    public static Network loadNetwork(String path) {
+
+        InputStream inputStream = IO.class.getResourceAsStream(path);
+
+        System.out.println(inputStream == null);
+
+        try {
+            return new ObjectMapper().readValue(inputStream, Network.class);
         } catch (IOException e) {
             System.err.println("Netzwerk konnte nicht gefunden werden.");
             System.err.println("Neues Netzwerk wird trainiert.");

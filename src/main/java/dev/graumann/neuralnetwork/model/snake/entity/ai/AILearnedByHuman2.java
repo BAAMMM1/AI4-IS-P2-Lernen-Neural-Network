@@ -19,11 +19,13 @@ import java.util.List;
  */
 public class AILearnedByHuman2 extends Player {
 
+    public static final String NETWORK_PATH = "/dev/graumann/neuralnetwork/networks/aiLearnedByHuman2.network";
+
     private Network brain;
 
     public AILearnedByHuman2(Field field, Snake snake) {
         super(field, snake);
-        this.brain = IO.loadNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\aiLearnedByHuman2").toURI());
+        this.brain = IO.loadNetwork(NETWORK_PATH);
         this.field = field;
         this.snake = snake;
 

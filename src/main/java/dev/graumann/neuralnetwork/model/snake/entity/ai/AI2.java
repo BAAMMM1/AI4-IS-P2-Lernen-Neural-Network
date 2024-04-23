@@ -16,11 +16,13 @@ import java.util.Arrays;
  */
 public class AI2 extends Player {
 
+    public static final String NETWORK_PATH = "/dev/graumann/neuralnetwork/networks/ai2.network";
+
     private Network brain;
 
     public AI2(Field field, Snake snake) {
-        super(field, snake);
-        this.brain = IO.loadNetwork(new File("" + System.getProperty("user.dir") + "\\networks\\ai2").toURI());
+        super(field, snake);        
+        this.brain = IO.loadNetwork(NETWORK_PATH);
         this.field = field;
         this.snake = snake;
 

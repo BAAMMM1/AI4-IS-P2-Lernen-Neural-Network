@@ -19,13 +19,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*
-        FXMLLoader fxmlLoader = new FXMLLoader();
-
-        URL path = new File(System.getProperty("user.dir") + "/src/main/java/view/view2.fxml").toURI().toURL();
-
-        Parent root = FXMLLoader.load(path);
-        */
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dev/graumann/neuralnetwork/fxml/view.fxml"));
         Parent root = fxmlLoader.load();
