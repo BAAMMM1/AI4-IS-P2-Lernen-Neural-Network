@@ -1,4 +1,4 @@
-package controller;
+package dev.graumann.neuralnetwork.controller;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

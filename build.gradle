@@ -6,7 +6,7 @@ plugins {
 }
 
 project.ext {
-   javaMainClass = 'Main'
+   javaMainClass = 'dev.graumann.neuralnetwork.Main'
 }
 
 repositories {

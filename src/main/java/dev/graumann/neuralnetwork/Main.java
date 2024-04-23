@@ -1,5 +1,6 @@
 package dev.graumann.neuralnetwork;
-import controller.ViewController;
+
+import dev.graumann.neuralnetwork.controller.ViewController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -26,7 +27,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(path);
         */
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/view2.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dev/graumann/neuralnetwork/fxml/view.fxml"));
         Parent root = fxmlLoader.load();
 
         primaryStage.setTitle("Neuronal Network - Snake Game");
