@@ -30,6 +30,20 @@ public class IO {
         return null;
     }
 
+    public static GameRecord load(String path) {
+
+        InputStream inputStream = IO.class.getResourceAsStream(path);
+
+        try {
+            return new ObjectMapper().readValue(inputStream, GameRecord.class);
+        } catch (IOException e) {
+            System.err.println("GameRecord konnte nicht geladen werden");
+        }
+
+
+        return null;
+    }
+
     public static void save(URI file, List<double[]> inputs, List<double[]> outputs) {
 
         System.out.println("--> " + file.toString());
@@ -59,8 +73,6 @@ public class IO {
     public static Network loadNetwork(String path) {
 
         InputStream inputStream = IO.class.getResourceAsStream(path);
-
-        System.out.println(inputStream == null);
 
         try {
             return new ObjectMapper().readValue(inputStream, Network.class);
