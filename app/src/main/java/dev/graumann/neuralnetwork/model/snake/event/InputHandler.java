@@ -42,13 +42,4 @@ public class InputHandler implements KeyListener {
 
     }
 
-    public static void main(String[] args) {
-
-        InputHandler inputHandler = new InputHandler();
-
-        while(true){
-
-        }
-    }
-
 }

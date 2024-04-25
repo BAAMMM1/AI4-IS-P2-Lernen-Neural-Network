@@ -17,6 +17,7 @@ import dev.graumann.neuralnetwork.model.snake.Game;
 
 import java.util.*;
 
+@SuppressWarnings("deprecation")
 public class ViewController implements Observer {
 
     private Game game;
@@ -125,7 +126,7 @@ public class ViewController implements Observer {
                 drawsBefore.clear();
 
 
-                //initBlankGridPane(); // TODO Nicht jedes mal das ganze Feld clearen, nur die Schlange clearen
+                //initBlankGridPane(); // Nicht jedes mal das ganze Feld clearen, nur die Schlange clearen
 
                 for (int i = 0; i < game.getSnake().getTails().size(); i++) {
                     /*
@@ -134,7 +135,7 @@ public class ViewController implements Observer {
                     rectangle.setStrokeWidth(0.5);
                     gridPane.add(rectangle, gameAI.getSnake().getTails().get(i).getX(), gameAI.getSnake().getTails().get(i).getY());
                     */
-                    drawsBefore.add(new Tuple(game.getSnake().getTails().get(i).getX(), game.getSnake().getTails().get(i).getY()));
+                    drawsBefore.add(new Tuple<>(game.getSnake().getTails().get(i).getX(), game.getSnake().getTails().get(i).getY()));
                     rectangles[game.getSnake().getTails().get(i).getX()][game.getSnake().getTails().get(i).getY()].setFill(Color.web("#000000"));
                 }
 
@@ -146,7 +147,7 @@ public class ViewController implements Observer {
                 */
 
 
-                drawsBefore.add(new Tuple(game.getSnake().getHead().getX(), game.getSnake().getHead().getY()));
+                drawsBefore.add(new Tuple<>(game.getSnake().getHead().getX(), game.getSnake().getHead().getY()));
                 rectangles[game.getSnake().getHead().getX()][game.getSnake().getHead().getY()].setFill(Color.web("#5B5B5B"));
 
                 /*
@@ -156,7 +157,7 @@ public class ViewController implements Observer {
                 gridPane.add(rectangle, gameAI.getField().getPickUp().getX(), gameAI.getField().getPickUp().getY());
                  */
 
-                drawsBefore.add(new Tuple(game.getField().getPickUp().getX(), game.getField().getPickUp().getY()));
+                drawsBefore.add(new Tuple<>(game.getField().getPickUp().getX(), game.getField().getPickUp().getY()));
                 rectangles[game.getField().getPickUp().getX()][game.getField().getPickUp().getY()].setFill(Color.web("#E8436E"));
 
                 drawScroe();
@@ -237,10 +238,6 @@ public class ViewController implements Observer {
         }
     }
 
-    private void cleargridSnake() {
-
-
-    }
 
     private Rectangle getBlankCell(int column, int row) {
 

@@ -1,7 +1,6 @@
 package dev.graumann.neuralnetwork.model.snake.entity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Score {
@@ -22,7 +21,7 @@ public class Score {
 
     public void restart(){
         if(score > bestScore) bestScore = score;
-        history.add(new Integer(score));
+        history.add(Integer.valueOf(score));
         averageScore = (int) history.stream().mapToInt(Integer::intValue).average().getAsDouble();
         score = 0;
     }

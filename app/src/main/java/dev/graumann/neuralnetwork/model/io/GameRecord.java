@@ -1,7 +1,6 @@
 package dev.graumann.neuralnetwork.model.io;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Diese Klasse stellt ein DTO zum laden und speichern der Felder als json da.

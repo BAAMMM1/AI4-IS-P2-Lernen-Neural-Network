@@ -14,6 +14,7 @@ import org.reflections.scanners.SubTypesScanner;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
+@SuppressWarnings("deprecation")
 public class Game extends Observable {
 
     private int runs = 10;
@@ -131,13 +132,13 @@ public class Game extends Observable {
 
     public Map<String, String> getPlayerTypes() {
 
-        Set<Class<? extends Player>> searchAlgortihms = new Reflections("dev.graumann.neuralnetwork.model.snake",
+        Set<Class<? extends Player>> playerTypes = new Reflections("dev.graumann.neuralnetwork.model.snake",
                 new SubTypesScanner(false))
                 .getSubTypesOf(Player.class);
 
         Map<String, String> result = new HashMap<>();
 
-        for (Class object : searchAlgortihms) {
+        for (Class<? extends Player> object : playerTypes) {
             if (!Modifier.isAbstract(object.getModifiers())) {
                 result.put(object.getSimpleName(), object.getName());
             }
